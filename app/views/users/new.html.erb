@@ -3,7 +3,7 @@
   <%= form_with url: users_path do |form| %>
     <div class = "Form-section">
       <p class = "FormInput-lable"> Name: </p>
-      <%= form.text_field :first_name, class: "Form-input" %>
+      <%= form.text_field :name, class: "Form-input" %>
     </div>
     <div class = "Form-section">
       <p class = "FormInput-lable"> Email: </p>
@@ -13,6 +13,7 @@
       <p class = "FormInput-lable"> Password: </p>
       <%= form.password_field :password, class: "Form-input" %>
     </div>
+    <br>
     <div class = "Form-section">
       <%= submit_tag "Sign-up", class: "Form-submit" %>
     </div>
