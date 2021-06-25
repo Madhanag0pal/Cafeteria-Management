@@ -6,9 +6,11 @@ default: &default
 development:
   <<: *default
   host: localhost
+  database: cafeteria_management
   user: cafeteriaadmin
   password: cafeteriaPassword
-  database: cafeteria_management
+  # user: postgres
+  # password: changeme
 
 # test:
 #   <<: *default
