@@ -1,10 +1,10 @@
 rails g model CreateRole name
 rails g model CreateUser role:references name email password:digest
-rails g model CreateAddres user:references name address
+rails g model CreateAddress user:references name address
 rails g model CreateMenuCategory name status
 rails g model CreateMenuItem menu_category:references name description price:float status
 rails g model CartItem user:references menu_item:references quantity:integer
 rails g model Rating user:references menu_item:references review:text rating:integer
 rails g model Status name
 rails g model Order user:references status:references price:float
-rails g model OrderItem menu_item:references quantity:integer price:float
+rails g model OrderItem order:references menu_item:references quantity:integer price:float

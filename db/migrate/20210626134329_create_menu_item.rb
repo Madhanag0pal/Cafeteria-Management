@@ -5,7 +5,7 @@ class CreateMenuItem < ActiveRecord::Migration[6.1]
       t.string :name
       t.string :description
       t.float :price
-      t.string :status
+      t.boolean :status, default: true
     end
   end
 end
