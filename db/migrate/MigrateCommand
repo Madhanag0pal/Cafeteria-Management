@@ -3,3 +3,5 @@ rails g migration CreateUser role:references name email password:digest
 rails g migration CreateAddres user:references name address
 rails g migration CreateMenuCategory name status
 rails g migration CreateMenuItem menu_category:references name description price:float status
+rails g model CartItem user:references menu_item:references quantity:integer
+rails g model Rating user:references menu_item:references review:text rating:integer
