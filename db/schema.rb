@@ -1,4 +1,4 @@
-ActiveRecord::Schema.define(version: 2021_06_27_145231) do
+ActiveRecord::Schema.define(version: 2021_06_27_174839) do
   enable_extension "plpgsql"
 
   create_table "addres", force: :cascade do |t|
@@ -30,6 +30,25 @@ ActiveRecord::Schema.define(version: 2021_06_27_145231) do
     t.index ["menu_category_id"], name: "index_menu_items_on_menu_category_id"
   end
 
+  create_table "order_items", force: :cascade do |t|
+    t.bigint "menu_item_id", null: false
+    t.integer "quantity"
+    t.float "price"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["menu_item_id"], name: "index_order_items_on_menu_item_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "status_id", null: false
+    t.float "price"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["status_id"], name: "index_orders_on_status_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
   create_table "ratings", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "menu_item_id", null: false
@@ -41,6 +60,12 @@ ActiveRecord::Schema.define(version: 2021_06_27_145231) do
 
   create_table "roles", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "statuses", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -55,6 +80,9 @@ ActiveRecord::Schema.define(version: 2021_06_27_145231) do
   add_foreign_key "cart_items", "menu_items"
   add_foreign_key "cart_items", "users"
   add_foreign_key "menu_items", "menu_categories"
+  add_foreign_key "order_items", "menu_items"
+  add_foreign_key "orders", "statuses"
+  add_foreign_key "orders", "users"
   add_foreign_key "ratings", "menu_items"
   add_foreign_key "ratings", "users"
   add_foreign_key "users", "roles"
