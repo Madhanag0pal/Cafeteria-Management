@@ -1,23 +1,9 @@
-<section class="UsersNew">
-  <%= form_with url: new_sessions_path do |form| %>
-    <div class = "Form-section">
-      <p class = "FormInput-lable"> Email: </p>
-      <%= form.text_field :email, class: "Form-input" %>
-    </div>
-    <div class = "Form-section">
-      <p class = "FormInput-lable"> Password: </p>
-      <%= form.password_field :password, class: "Form-input" %>
-    </div>
-    <br>
-    <div class = "Form-section">
-      <%= submit_tag "Log In", class: "Form-submit" %>
-    </div>
-  <% end %>
-</section>
-
-<hr>
-<div class="Home-authenticate">
-  <p class = "FormInput-lable">
-    If you are a new user <%= link_to "Sign-up here", new_user_path %>
-  </p>
-</div>
+<h1>Menue</h1>
+<% for catagory in MenuCategory.all %>
+  <p><%= catagory.name %></p>
+  <ul>
+    <% for item in catagory.menu_items %>
+      <li><%= item.name %></li>
+    <% end %>
+  </ul>
+<% end %>
