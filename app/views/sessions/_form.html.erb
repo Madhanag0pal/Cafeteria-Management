@@ -1,0 +1,18 @@
+<%= form_with url: url do |form| %>
+  <div class="container d-grid gap-4 justify-content-center">
+
+    <% fields.each do |field| %>
+      <div class="row">
+        <div class="col-3">
+          <%= form.label field %>
+        </div>
+        <div class="col-9">
+          <%= form.text_field field %>
+        </div>
+      </div>
+    <% end %>
+    <div class="mx-auto">
+      <%= submit_tag title, class: "btn btn-outline-success" %>
+    </div>
+  </div>
+<% end %>

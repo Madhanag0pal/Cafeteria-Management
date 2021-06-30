@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     if user.save
       render plain: "User #{user} has created successfuly"
     else
-      flash[:error] = user.errors.full_messages.join(", ")
+      flash["sign-up-error"] = user.errors.full_messages.join(", ")
       redirect_to new_user_path
     end
   end

@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 2021_06_27_183308) do
     t.bigint "menu_category_id", null: false
     t.string "name"
     t.string "description"
+    t.boolean "veg", default: true
     t.float "price"
     t.boolean "status", default: true
     t.index ["menu_category_id"], name: "index_menu_items_on_menu_category_id"
@@ -66,7 +67,6 @@ ActiveRecord::Schema.define(version: 2021_06_27_183308) do
   create_table "ratings", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "menu_item_id", null: false
-    t.text "review"
     t.integer "rating"
     t.index ["menu_item_id"], name: "index_ratings_on_menu_item_id"
     t.index ["user_id"], name: "index_ratings_on_user_id"

@@ -3,4 +3,5 @@ class MenuItem < ApplicationRecord
   has_many :cart_items, dependent: :destroy
 
   validates :name, :price, presence: true
+  validates :name, uniqueness: true
 end

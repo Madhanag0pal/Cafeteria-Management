@@ -1,23 +1,24 @@
 <div class="modal-dialog mt-6">
   <div class="modal-content">
     <div class="modal-header ">
-      <h5 class="modal-title">Sign Up</h5>
+      <h5 class="modal-title">Sign In</h5>
     </div>
     <div class="modal-body">
-      <% if flash["sign-up-error"] %>
+      <% if flash["sign-in-error"] %>
         <div class="alert alert-danger" role="alert">
-          <%= flash["sign-up-error"] %>
+          <%= flash["sign-in-error"] %>
         </div>
       <% end %>
       <%= render partial: "sessions/form", locals: {
-                   title: "Sign Up",
-                   url: users_path,
-                   fields: [:name, :email, :password],
+                   title: "Sign In",
+                   url: new_sessions_path,
+                   fields: [:email, :password],
                  } %>
     </div>
     <div class="modal-footer justify-content-center">
       <p class="text-start">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#sign-in-Modal" data-bs-dismiss="modal"> Sign In </button>      </p>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#sign-up-Modal"  data-bs-dismiss="modal"> Create an Account </button>
+      </p>
     </div>
   </div>
 </div>

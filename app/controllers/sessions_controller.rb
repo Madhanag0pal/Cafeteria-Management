@@ -1,4 +1,6 @@
-class SessionController < ApplicationController
+class SessionsController < ApplicationController
+  skip_before_action :ensuer_user_logged_in
+
   def new
   end
 
@@ -8,7 +10,7 @@ class SessionController < ApplicationController
       session[:current_user_id] = user.id
       redirect_to "/"
     else
-      flash[:error] = "Your login attempt was invalid. Please retry."
+      flash["sign-in-error"] = "Invalid User Name or Password"
       redirect_to new_sessions_path
     end
   end
