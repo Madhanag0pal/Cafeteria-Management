@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root to: "home#index"
   resources :users
+  resources :cart_items
 
   get "/signup" => "users#new", as: :signup
   get "/signin" => "sessions#new", as: :new_sessions
