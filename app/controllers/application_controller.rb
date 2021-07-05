@@ -18,7 +18,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def set_cartItem
+  def set_cartItems
     @cart_items = @current_user.cart_items
+  end
+
+  def set_orders
+    @orders = @current_user.orders
   end
 end

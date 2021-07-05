@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2021_07_05_092817) do
 
   create_table "orders", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "status_id", null: false
+    t.bigint "status_id", default: 1, null: false
     t.float "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
