@@ -28,3 +28,7 @@ MenuCategoryItem.create(menu_category_id: dinner.id, menu_item_id: MenuItem.crea
 MenuCategoryItem.create(menu_category_id: dinner.id, menu_item_id: MenuItem.create(name: "Veg Fried Rice", description: "Fried rice is a dish of cooked rice that has been stir-fried.", price: 100).id)
 MenuCategoryItem.create(menu_category_id: dinner.id, menu_item_id: MenuItem.create(name: "Chicken Fried Rice", description: "Fried rice is a dish of cooked rice that has been stir-fried.", price: 120, veg: false).id)
 MenuCategoryItem.create(menu_category_id: dinner.id, menu_item_id: MenuItem.create(name: "Chicken Noodles", description: "Noodles made from unleavened dough which is rolled flat and cut", price: 120, veg: false).id)
+
+Ststus.create(name: "pending")
+Ststus.create(name: "delevered")
+Ststus.create(name: "canceled")
