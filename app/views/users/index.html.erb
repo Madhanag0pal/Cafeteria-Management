@@ -1,0 +1,43 @@
+<div class="container-fluid row px-1 m-0">
+  <div class="col-12 col-md-9 px-1">
+    <% for catagory in MenuCategory.all %>
+      <div class="py-3 " id=<%= catagory.name %>>
+        <h2><%= catagory.name %></h2>
+        <hr>
+        <% # %>
+        <div class="d-flex scroll-x">
+          <% catagory.menu_items.each do |item| %>
+            <div class="col-6 col-sm-4 col-md-5 col-lg-4 col-xl-3 col-xxl-2 card" id="<%= item.name %>">
+              <%= image_tag "food" %>
+              <div class="card-body">
+                <h5 class="card-title"> <%= item.name %> </h5>
+                <p class="card-text">Some discription<p>
+                <div class="d-flex justify-content-between mt-2">
+                  <p class="align-middle">₹<%= item.price %></p>
+                  <% if @current_user %>
+                    <% if @current_user.cart_items.exists?(menu_item_id: item.id) %>
+                      <div class="btn-group btn-group-sm">
+                        <% crtItm = @current_user.cart_items.find_by(menu_item_id: item.id) %>
+                        <%= link_to "-", cart_item_path(id: crtItm.id, quantity: crtItm.quantity - 1), method: :put, class: "btn btn-outline-primary" %>
+                        <a class="btn border-top border-bottom"> <%= crtItm.quantity %> </a>
+                        <%= link_to "+", cart_item_path(id: crtItm.id, quantity: crtItm.quantity + 1), method: :put, class: "btn btn-outline-primary" %>
+                      </div>
+                    <% else %>
+                        <%= link_to "Add", cart_items_path(itemId: item.id), method: :create, class: "btn btn-sm btn-primary" %>
+                    <% end %>
+                  <% else %>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#sign-in-Modal"> Add </button>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="d-none d-md-block col-md-3 card position-fixed end-0 p-3 mt-2 me-1 h-75">
+    <%= render partial: "cart_items/list" %>
+  </div>
+</div>

@@ -3,5 +3,8 @@ class HomeController < ApplicationController
   before_action :current_user
 
   def index
+    if params[:search]
+      redirect_to "/##{params[:search]}"
+    end
   end
 end

@@ -16,9 +16,23 @@
  */
 
  .scroll-y{
-   overflow-y: scroll;
+   overflow-y: auto;
  }
 
  .scroll-x{
    overflow-x: auto;
+}
+
+p {
+  margin-bottom: 0px;
+}
+
+opacity-1{
+  opacity: 0.25;
+}
+opacity-2{
+  opacity: 0.5;
+}
+opacity-3{
+  opacity: 0.75;
 }

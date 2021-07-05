@@ -1,12 +1,7 @@
 class UsersController < ApplicationController
-  skip_before_action :ensuer_user_logged_in
+  skip_before_action :ensuer_user_logged_in, only: [:index]
 
   def index
-    render plain: User.all.join("\n")
-  end
-
-  def show
-    render plain: User.find(params[:id])
   end
 
   def new

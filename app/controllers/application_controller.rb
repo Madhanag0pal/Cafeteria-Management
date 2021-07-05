@@ -17,4 +17,8 @@ class ApplicationController < ActionController::Base
       nil
     end
   end
+
+  def set_cartItem
+    @cart_items = @current_user.cart_items
+  end
 end
