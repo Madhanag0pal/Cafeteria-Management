@@ -1,8 +1,9 @@
-rails g model CreateRole name
-rails g model CreateUser role:references name email password:digest
-rails g model CreateAddress user:references name address
-rails g model CreateMenuCategory name status
-rails g model CreateMenuItem menu_category:references name description price:float status
+rails g model Role name
+rails g model User role:references name email password:digest
+rails g model Address user:references name address
+rails g model MenuCategory name status
+rails g model MenuCategoryItem menu_category:references menu_item:references
+rails g model MenuItem name description price:float status
 rails g model CartItem user:references menu_item:references quantity:integer
 rails g model Rating user:references menu_item:references review:text rating:integer
 rails g model Status name

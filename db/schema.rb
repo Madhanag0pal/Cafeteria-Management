@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_27_183308) do
+ActiveRecord::Schema.define(version: 2021_07_05_092817) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2021_06_27_183308) do
   create_table "cart_items", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "menu_item_id", null: false
-    t.integer "quantity"
+    t.integer "quantity", default: 1
     t.index ["menu_item_id"], name: "index_cart_items_on_menu_item_id"
     t.index ["user_id"], name: "index_cart_items_on_user_id"
   end
@@ -35,14 +35,19 @@ ActiveRecord::Schema.define(version: 2021_06_27_183308) do
     t.boolean "status", default: true
   end
 
-  create_table "menu_items", force: :cascade do |t|
+  create_table "menu_category_items", force: :cascade do |t|
     t.bigint "menu_category_id", null: false
+    t.bigint "menu_item_id", null: false
+    t.index ["menu_category_id"], name: "index_menu_category_items_on_menu_category_id"
+    t.index ["menu_item_id"], name: "index_menu_category_items_on_menu_item_id"
+  end
+
+  create_table "menu_items", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.boolean "veg", default: true
     t.float "price"
     t.boolean "status", default: true
-    t.index ["menu_category_id"], name: "index_menu_items_on_menu_category_id"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -91,7 +96,8 @@ ActiveRecord::Schema.define(version: 2021_06_27_183308) do
   add_foreign_key "addresses", "users"
   add_foreign_key "cart_items", "menu_items"
   add_foreign_key "cart_items", "users"
-  add_foreign_key "menu_items", "menu_categories"
+  add_foreign_key "menu_category_items", "menu_categories"
+  add_foreign_key "menu_category_items", "menu_items"
   add_foreign_key "order_items", "menu_items"
   add_foreign_key "order_items", "orders"
   add_foreign_key "orders", "statuses"
