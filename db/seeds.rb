@@ -1,9 +1,10 @@
 owner = Role.create(name: "Owner")
-Role.create(name: "Billing Clerk")
+clerk = Role.create(name: "Billing Clerk")
 customer = Role.create!(name: "Online Customer")
 
 User.create(role_id: owner.id, name: "Admin", email: "owner@email.com", password: "owner")
-User.create(role_id: customer.id, name: "Customer", email: "customer@email", password: "customer")
+User.create(role_id: clerk.id, name: "Clerk", email: "clerk@email.com", password: "clerk")
+User.create(role_id: customer.id, name: "Customer", email: "customer@email.com", password: "customer")
 
 brakefast = MenuCategory.create(name: "Breakfast")
 lunch = MenuCategory.create(name: "Lunch")
@@ -28,3 +29,7 @@ MenuCategoryItem.create(menu_category_id: dinner.id, menu_item_id: MenuItem.crea
 MenuCategoryItem.create(menu_category_id: dinner.id, menu_item_id: MenuItem.create(name: "Veg Fried Rice", description: "Fried rice is a dish of cooked rice that has been stir-fried.", price: 100).id)
 MenuCategoryItem.create(menu_category_id: dinner.id, menu_item_id: MenuItem.create(name: "Chicken Fried Rice", description: "Fried rice is a dish of cooked rice that has been stir-fried.", price: 120, veg: false).id)
 MenuCategoryItem.create(menu_category_id: dinner.id, menu_item_id: MenuItem.create(name: "Chicken Noodles", description: "Noodles made from unleavened dough which is rolled flat and cut", price: 120, veg: false).id)
+
+Status.create(name: "pending")
+Status.create(name: "delevered")
+Status.create(name: "canceled")
