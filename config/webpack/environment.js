@@ -12,4 +12,11 @@ Popper: ['popper.js', 'default']
 
 }))
 
+environment.plugins.prepend(
+  'Provide',
+  new webpack.ProvidePlugin({
+    jQuery: 'jquery',
+  })
+)
+
 module.exports = environment
