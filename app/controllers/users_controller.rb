@@ -25,6 +25,8 @@ class UsersController < ApplicationController
   end
 
   def update
+    User.update(params[:id], name: params[:name], address: params[:address])
+    redirect_to user_path
   end
 
   def destroy

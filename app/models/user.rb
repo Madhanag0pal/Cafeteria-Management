@@ -5,8 +5,8 @@ class User < ApplicationRecord
   has_many :cart_items, dependent: :destroy
   has_many :ratings
 
-  validates :name, :email, presence: true
-  validates :email, uniqueness: true
+  validates :name, presence: true, length: { maximum: 10 }
+  validates :email, presence: true, uniqueness: true
   has_secure_password
 
   def to_s

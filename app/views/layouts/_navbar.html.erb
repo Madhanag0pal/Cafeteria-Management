@@ -34,12 +34,10 @@
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                   <li> <%= link_to "My Profile", @current_user, method: :get, class: "dropdown-item" %> </li>
-                  <% if @current_user.role.id == 3 %>
+                  <% if @current_user.customer? %>
                     <li> <%= link_to "My Addresses", addresses_path, class: "dropdown-item" %> </li>
                   <% end %>
                   <li> <%= link_to "My Orders", orders_path, class: "dropdown-item" %> </li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>
               </li>
             </ul>

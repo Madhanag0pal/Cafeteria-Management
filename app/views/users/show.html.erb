@@ -1,8 +1,15 @@
 <div class="modal-content w-50 mx-auto mt-5">
-  <div class="modal-header d-flex justify-content-center">
-    <h1 class="m-0" style="font-size:100px"><i class="bi bi-person-circle mx-auto"></i><h1>
+  <div class="modal-header">
+    <h3 class="mx-auto">My Profile</h3>
   </div>
   <div class="modal-body">
+    <div class="d-flex justify-content-center my-3">
+      <%= image_tag "avatar", size: "100", class: "rounded-circle" %>
+      <%= link_to edit_user_path(id: @current_user.id), class: "position-relative" do %>
+        <i class="bi bi-pencil position-absolute top-100 start-0 translate-middle" style="font-size:20px"></i>
+      <% end %>
+    </div>
+    <hr>
     <div class="d-flex  row-cols-2">
       <div class="col-4 text-center">
         Name :
@@ -19,10 +26,8 @@
         <%= @current_user.email %>
       </div>
     </div>
-    <div class="d-flex">
-        <%= link_to "Edit Profile", edit_user_path(id: @current_user.id) %>
-    </div>
   </div>
   <div class="modal-footer justify-content-center">
+    <%= link_to "Delete Account", @current_user, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
   </div>
 </div>
