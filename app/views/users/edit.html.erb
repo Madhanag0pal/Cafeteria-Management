@@ -1,7 +1,7 @@
 <div class="modal-dialog mt-5">
   <div class="modal-content">
     <div class="modal-header ">
-      <h5 class="modal-title">Sign Up</h5>
+      <h5 class="modal-title"> Edit Profile </h5>
     </div>
     <div class="modal-body">
       <% if flash["sign-up-error"] %>
@@ -10,14 +10,12 @@
         </div>
       <% end %>
       <%= render partial: "sessions/form", locals: {
-                   title: "Sign Up",
-                   path: { url: users_path },
+                   title: "Edit",
+                   path: { url: user_path, method: :put },
                    fields: [:name, :email, :password, :password_confirmation],
                  } %>
     </div>
     <div class="modal-footer justify-content-center">
-      <p class="text-start">
-        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#sign-in-Modal" data-bs-dismiss="modal"> Sign In </button>      </p>
     </div>
   </div>
 </div>

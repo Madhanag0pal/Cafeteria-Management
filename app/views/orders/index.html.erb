@@ -1,0 +1,30 @@
+<% @orders.each do |order| %>
+  <div class="py-3">
+    <div class="d-inline-flex">
+      <div class="col-8">
+        <h2> OrderId: #<%= order.id %> </h2>
+        <h4> ₹ <%= order.price %> (<%= order.status.name %>)</h4>
+      </div>
+      <div class="col-4">
+        <%= link_to "cancel", order, method: :delete, class: "btn btn-danger" %>
+      </div>
+    </div>
+    <hr>
+    <div class="d-flex scroll-x">
+      <% order.order_items.each do |item| %>
+        <div class="col-6 col-sm-3 col-xl-2 card" id="<%= item.name %>">
+          <%= image_tag "food" %>
+          <div class="card-body row row-col-1">
+            <div class="col-12">
+              <h5 class="card-title"> <%= item.name %> </h5>
+            </div>
+            <div class="col-12 align-text-bottom mt-2">
+                <p class="align-middle">quantity: <%= item.quantity %></p>
+                <p class="align-middle">₹ <%= item.price %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

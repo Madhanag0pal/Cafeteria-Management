@@ -7,11 +7,12 @@
       <div class="border text-center">
         <b class="mx-3"><%= address.name %></b>
       </div>
+
       <div class="border d-flex px-5">
-        <div class="col-8">
+        <div class="col-7">
           <%= address.address %>
         </div>
-        <div class="col-4">
+        <div class="col-3">
           <%= link_to edit_address_path(id: address.id), class: "mx-3" do %>
             <i class="bi bi-pencil"></i>
           <% end %>
@@ -19,7 +20,7 @@
           <%= link_to address, method: :delete, class: "mx-3" do %>
             <i class="bi bi-trash-fill"></i>
           <% end %>
-        <div>
+        </div>
       </div>
     </div>
   <% end %>

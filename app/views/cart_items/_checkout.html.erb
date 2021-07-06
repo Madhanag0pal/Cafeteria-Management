@@ -1,0 +1,27 @@
+<div class="modal-dialog mt-6">
+  <div class="modal-content">
+    <div class="modal-header ">
+      <h5 class="modal-title"> Checkout </h5>
+    </div>
+    <div class="modal-body">
+      <%= form_with url: orders_path, method: :post, data: { confirm: "Are you sure?" } do |form| %>
+        <div class="my-2">
+          <%= label_tag "address_id", "Delevere to" %>
+        </div>
+        <div class="my-2">
+          <%= link_to "Add Address", new_address_path, class: "btn btn-outline-primary form-control" %>
+        </div>
+        <% if @current_user.addresses.present? %>
+          <div class="my-2">
+              <%= select_tag "address_id", options_for_select(@current_user.addresses.collect { |u| [u.name, u.id] }), class: "form-control" %>
+          </div>
+          <div class="my-2">
+            <%= form.submit "Checkout", class: "btn btn-success form-control" %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="modal-footer justify-content-center">
+    </div>
+  </div>
+</div>

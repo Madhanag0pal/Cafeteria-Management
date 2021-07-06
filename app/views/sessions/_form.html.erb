@@ -1,18 +1,23 @@
-<%= form_with url: url do |form| %>
-  <div class="container d-grid gap-2 row-col-1 justify-content-center">
-    <h1 class="text-center m-0 style="font-size:40px"><i class="bi bi-person-circle"></i><h1>
+<%= form_with **path do |form| %>
+  <div class="container d-grid  row-col-1 justify-content-center">
+    <h1 class="text-center m-0" style="font-size:40px"><i class="bi bi-person-circle"></i><h1>
       <% fields.each do |field| %>
         <div class="my-2">
+
           <%= case field
-              when :password
+              when :password, :password_confirmation
                 form.password_field field, class: "form-control", placeholder: field
               else
-                form.text_field field, class: "form-control", placeholder: field
+                if @current_user
+                  form.text_field field, class: "form-control", placeholder: field, value: @current_user[field]
+                else
+                  form.text_field field, class: "form-control", placeholder: field
+                end
               end %>
         </div>
       <% end %>
     <div class="my-2 text-center">
-      <%= submit_tag title, class: "btn btn-success" %>
+      <%= submit_tag title, class: "btn btn-success w-75" %>
     </div>
   </div>
 <% end %>

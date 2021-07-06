@@ -38,7 +38,8 @@
       <%= "Subtotal: ₹" + @cart_items.price.to_s %>
     </div>
     <div class= "col m-auto">
-      <%= button_to "Checkout", orders_path, method: :post, data: { confirm: "Are you sure?" }, class: "btn btn-outline-primary btn-sm " %>
+      <% button_to "Checkout", orders_path, method: :post, data: { confirm: "Are you sure?" }, class: "btn btn-outline-primary btn-sm " %>
+      <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#checkout-Modal"> Checkout </button>
     </div>
   <% end %>
 </div>

@@ -1,0 +1,28 @@
+<div class="modal-content w-50 mx-auto mt-5">
+  <div class="modal-header d-flex justify-content-center">
+    <h1 class="m-0" style="font-size:100px"><i class="bi bi-person-circle mx-auto"></i><h1>
+  </div>
+  <div class="modal-body">
+    <div class="d-flex  row-cols-2">
+      <div class="col-4 text-center">
+        Name :
+      </div>
+      <div class="col-8 text-center">
+        <%= @current_user.name %>
+      </div>
+    </div>
+    <div class="d-flex row-cols-2">
+      <div class="col-4 text-center">
+        Email:
+      </div>
+      <div class="col-8 text-center">
+        <%= @current_user.email %>
+      </div>
+    </div>
+    <div class="d-flex">
+        <%= link_to "Edit Profile", edit_user_path(id: @current_user.id) %>
+    </div>
+  </div>
+  <div class="modal-footer justify-content-center">
+  </div>
+</div>

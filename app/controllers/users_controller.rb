@@ -1,7 +1,10 @@
 class UsersController < ApplicationController
-  skip_before_action :ensuer_user_logged_in, only: [:index]
+  skip_before_action :ensuer_user_logged_in, only: [:create, :new]
 
   def index
+  end
+
+  def new
   end
 
   def create
@@ -10,9 +13,11 @@ class UsersController < ApplicationController
       name: params[:name],
       email: params[:email],
       password: params[:password],
+      password_confirmation: params[:password_confirmation],
     )
     if user.save
-      render plain: "User #{user} has created successfuly"
+      session[:current_user_id] = user.id
+      redirect_to root_path
     else
       flash["sign-up-error"] = user.errors.full_messages.join(", ")
       redirect_to new_user_path
