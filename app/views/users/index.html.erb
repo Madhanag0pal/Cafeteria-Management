@@ -28,7 +28,7 @@
                           <%= link_to "+", cart_item_path(id: crtItm.id, quantity: crtItm.quantity + 1), method: :put, class: "btn btn-outline-primary" %>
                         </div>
                       <% else %>
-                          <%= link_to "Add", cart_items_path(itemId: item.id), method: :create, class: "btn btn-sm btn-primary" %>
+                        <%= link_to "Add", cart_items_path(itemId: item.id), method: :post, class: "btn btn-sm btn-primary" %>
                       <% end %>
                     <% else %>
                       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#sign-in-Modal"> Add </button>
@@ -43,7 +43,7 @@
     <% end %>
   </div>
 
-  <div class="d-none d-md-block col-md-3 card position-fixed end-0 p-3 mt-2 me-1 h-75">
+  <div class="d-none d-md-block col-md-3 card position-fixed end-0 p-3 m-1 h-85">
     <%= render partial: "cart_items/list" %>
   </div>
 </div>

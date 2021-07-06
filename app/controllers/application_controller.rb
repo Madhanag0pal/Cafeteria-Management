@@ -19,10 +19,14 @@ class ApplicationController < ActionController::Base
   end
 
   def set_cartItems
-    @cart_items = @current_user.cart_items
+    if current_user
+      @cart_items = @current_user.cart_items
+    end
   end
 
   def set_orders
-    @orders = @current_user.orders
+    if current_user
+      @orders = @current_user.orders
+    end
   end
 end

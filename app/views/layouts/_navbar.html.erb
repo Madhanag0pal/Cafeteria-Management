@@ -9,14 +9,20 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarColor">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <div class="collapse navbar-collapse justify-content-between" id="navbarColor">
+      <ul class="navbar-nav mb-2 mb-lg-0">
         <% MenuCategory.all.each do |catagory| %>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href=<%= "#" + catagory.name %> ><%= catagory.name %></a>
           </li>
         <% end %>
       </ul>
+      <div class="d-flex justify-content-center">
+        <form class="d-inline-flex">
+          <input class="form-control w-100 me-2" placeholder="Search for Menu Item" name="search">
+          <button class="btn btn-success" type="submit">Search</button>
+        </form>
+      </div>
       <hr>
       <% if @current_user %>
         <div class="d-flex justify-content-around px-3">
@@ -46,16 +52,6 @@
           <button type="button" class="btn btn-success mx-3" data-bs-toggle="modal" data-bs-target="#sign-in-Modal"> Sign In </button>
         </div>
       <% end %>
-
     </div>
-  </div>
-</nav>
-
-<nav class="navbar navbar-light bg-light">
-  <div class="container-fluid justify-content-center">
-    <form class="d-flex">
-      <input class="form-control me-2" placeholder="Search for Menu Item" name="search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
   </div>
 </nav>

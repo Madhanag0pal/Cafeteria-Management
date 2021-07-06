@@ -1,27 +1,25 @@
-<% if @current_user %>
-  <div class="row justify-content-around px-2">
-    <div class="col-8">
-      <h3 class="text-center" style="font-size:2vw;">Cart Items</h3>
-    </div>
-    <div class="col-4 text-center">
-        <% if @current_user.cart_items.present? %>
-          <%= link_to cart_item_path(id: 0), method: :delete do %>
-            <i class="bi bi-cart-x-fill btn btn-outline-danger btn-sm my-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Clear Cart"></i>
-          <% end %>
-        <% end %>
-    </div>
+<div class="row justify-content-around px-2">
+  <div class="col-8">
+    <h5 class="text-center">Cart Items</h5>
   </div>
-  <div class="row border-top scroll-y h-75">
-    <div class="col-12 border">
-      <% total = 0 %>
-      <% @current_user.cart_items.each do |item| %>
+  <div class="col-4 text-center">
+      <% if @cart_items.present? %>
+        <%= link_to cart_item_path(id: 0), method: :delete do %>
+          <i class="bi bi-cart-x-fill btn btn-outline-danger btn-sm my-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Clear Cart"></i>
+        <% end %>
+      <% end %>
+  </div>
+</div>
+<div class="row border-top scroll-y h-75">
+  <div class="col-12 border">
+    <% if @cart_items.present? %>
+      <% @cart_items.each do |item| %>
         <div class="row border-bottom  py-1">
           <div class="col-8 text-start w-50 px-1">
-            <p class="m-0"><%= item.menu_item.name %><p>
+            <p><%= item.menu_item.name %><p>
           </div>
           <div class="col-4 text-end w-50 px-1">
-            <% total += item.menu_item.price * item.quantity %>
-            <p class="m-0">₹<%= item.menu_item.price * item.quantity %><p>
+            <p class="m-0">₹<%= item.price %><p>
             <div class="btn-group btn-group-sm">
                   <%= link_to "-", cart_item_path(id: item.id, quantity: item.quantity - 1), method: :put, class: "btn btn-outline-primary" %>
                   <a class="btn border-top border-bottom"> <%= item.quantity %> </a>
@@ -30,29 +28,17 @@
           </div>
         </div>
       <% end %>
-    </div>
+    <% end %>
   </div>
-  <div class= "row row-cols-1 row-cols-lg-2 text-center my-2">
+</div>
+
+<div class= "row row-cols-1 row-cols-lg-2 text-center my-2">
+  <% if @cart_items.present? %>
     <div class= "col m-auto">
-      <%= "Subtotal: ₹" + total.to_s %>
+      <%= "Subtotal: ₹" + @cart_items.price.to_s %>
     </div>
     <div class= "col m-auto">
-      <%= button_to "Checkout", "#", method: :get, class: "btn btn-outline-primary" %>
+      <%= button_to "Checkout", orders_path, method: :post, data: { confirm: "Are you sure?" }, class: "btn btn-outline-primary btn-sm " %>
     </div>
-  </div>
-<% else %>
-  <div class="row justify-content-around px-2">
-    <div class="col-8">
-      <h3 class="text-center" style="font-size:2vw;">Cart Items</h3>
-    </div>
-  </div>
-  <div class="row border-top scroll-y h-75">
-    <div class="col-12 border"></div>
-  </div>
-  <div class= "row row-cols-1 row-cols-lg-2 text-center my-2">
-    <div class= "col m-auto">Subtotal: ₹0</div>
-    <div class= "col m-auto">
-      <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#sign-in-Modal"> Checkout </button>
-    </div>
-  </div>
-<% end %>
+  <% end %>
+</div>
