@@ -1,0 +1,24 @@
+<div class="modal-dialog mt-6">
+  <div class="modal-content">
+    <div class="modal-header ">
+      <h5 class="modal-title">Edit Address</h5>
+    </div>
+    <div class="modal-body">
+      <%= form_with url: @address, method: :put do |form| %>
+        <div class="container d-grid gap-2 row-col-1 justify-content-center">
+          <div class="my-2">
+            <%= form.text_field :name, class: "form-control", placeholder: "Title", value: @address.name %>
+          </div>
+          <div class="my-2">
+            <%= form.text_area :address, class: "form-control", placeholder: "Address", value: @address.address %>
+          </div>
+          <div class="my-2 text-center">
+            <%= submit_tag "Edit Address", class: "btn btn-success" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="modal-footer justify-content-center">
+    </div>
+  </div>
+</div>

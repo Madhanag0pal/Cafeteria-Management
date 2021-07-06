@@ -14,7 +14,7 @@ class CartItem < ApplicationRecord
     all.map { |item| item.price }.sum()
   end
 
-  def self.place_order(order)
+  def self.place_order(order,address_id)
     all.each do |item|
       OrderItem.create(order_id: order.id, menu_item_id: item.menu_item_id, quantity: item.quantity, price: item.price)
     end

@@ -34,7 +34,10 @@
                   <%= @current_user.name %>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
+
+                  <% if @current_user.role.id == 3 %>
+                    <li> <%= link_to "My Addresses", addresses_path, class: "dropdown-item" %> </li>
+                  <% end %>
                   <li><a class="dropdown-item" href="#">Another action</a></li>
                   <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>
