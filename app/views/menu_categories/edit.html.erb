@@ -1,0 +1,31 @@
+<div class="modal-dialog mt-5">
+  <div class="modal-content">
+
+    <div class="modal-header ">
+      <h5 class="modal-title">Edit Category</h5>
+    </div>
+
+    <div class="modal-body">
+      <% if flash["edit-category-error"] %>
+        <div class="alert alert-danger" role="alert">
+          <%= flash["edit-category-error"] %>
+        </div>
+      <% end %>
+      <%= form_with(url: @menu_categoy, method: :put) do |form| %>
+        <div class="container d-grid  row-col-1 justify-content-center">
+          <div class="my-2">
+            <%= form.text_field :name, class: "form-control", placeholder: "Name", value: @menu_categoy.name %>
+          </div>
+
+          <div class="my-2 text-center">
+            <%= submit_tag "Change", class: "btn btn-success w-75" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="modal-footer justify-content-center">
+    </div>
+
+  </div>
+</div>

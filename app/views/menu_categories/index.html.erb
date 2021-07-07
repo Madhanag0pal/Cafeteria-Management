@@ -1,90 +1,105 @@
 <div class="container-fluid row px-1 m-0">
-  <% if @current_user && @current_user.admin? %>
+  <% is_admin = @current_user && @current_user.admin? %>
+  <% if (is_admin) %>
     <div class="col-10 px-1 mx-auto">
       <div class="py-3 text-center">
-        <h3> <%= link_to "+ Add New Catagory", menu_categories_path, class: "btn btn-outline-primary" %> <h3>
-      </div>
-  <% else %>
-    <div class="col-12 col-md-9 px-1">
-  <% end %>
-
-  <% MenuCategory.order(:id).each do |catagory| %>
-    <div class="py-3 " id=<%= catagory.name %>>
-
-      <% if @current_user && @current_user.admin? %>
-        <div class="d-flex justify-content-around">
-          <h2><%= catagory.name %></h2>
-            <%= form_with(url: catagory, method: "put") do %>
-              <div class="form-check form-switch">
-                <%= check_box_tag "status", nil, checked = true, class: "form-check-input", onclick: "this.form.submit()" %>
-              </div>
-            <% end %>
-        </div>
-      <% else %>
-        <div>
-          <h2><%= catagory.name %></h2>
-        </div>
-      <% end %>
-
-      <hr>
-
-      <div class="d-flex scroll-x">
-        <% if @current_user && @current_user.admin? %>
-          <div class="col-6 col-sm-4 col-md-5 col-lg-4 col-xl-3 col-xxl-2 card">
-            Add new Item
-          </div>
-        <% end %>
-
-        <% catagory.menu_category_item.each do |m_item| %>
-          <% item = m_item.menu_item %>
-          <div class="col-6 col-sm-4 col-md-5 col-lg-4 col-xl-3 col-xxl-2 card" id="<%= item.name %>">
-            <%= image_tag "food" %>
-            <div class="card-body row row-col-1">
-              <div class="col-12">
-                <h5 class="card-title"> <%= item.name %> </h5>
-              </div>
-              <div class="col-12 h-50 scroll-y">
-                <p class="card-text"><%= item.description %><p>
-              </div>
-              <div class="col-12 align-text-bottom mt-2">
-                <div class = "d-flex justify-content-between">
-                  <p class="align-middle">₹<%= item.price %></p>
-                  <% if @current_user %>
-                    <% if @current_user.admin? %>
-                      <p>Edit</p>
-                      <%= form_with(url: item, method: "put") do %>
-                        <div class="form-check form-switch">
-                          <%= check_box_tag "status", nil, checked = true, class: "form-check-input", onclick: "this.form.submit()" %>
-                        </div>
-                      <% end %>
-                    <% elsif @current_user.cart_items.exists?(menu_item_id: item.id) %>
-                      <div class="btn-group btn-group-sm">
-                        <% crtItm = @current_user.cart_items.find_by(menu_item_id: item.id) %>
-                        <%= button_to "-", cart_item_path(id: crtItm.id, quantity: crtItm.quantity - 1), method: :put, class: "btn btn-outline-primary btn-sm" %>
-                        <a class="btn border-top border-bottom btn-sm"> <%= crtItm.quantity %> </a>
-                        <%= button_to "+", cart_item_path(id: crtItm.id, quantity: crtItm.quantity + 1), method: :put, class: "btn btn-outline-primary btn-sm" %>
-                      </div>
-                    <% elsif m_item.active? %>
-                        <%= button_to "Add", cart_items_path(itemId: item.id), method: :post, class: "btn btn-sm btn-primary" %>
-                    <% else %>
-                      <%= button_to "Add", cart_items_path(itemId: item.id), method: :post, class: "btn btn-sm btn-primary", disabled: "true" %>
-                    <% end %>
-                  <% else %>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#sign-in-Modal"> Add </button>
-                  <% end %>
-                </div>
-              </div>
+        <%= form_with url: menu_categories_path do |form| %>
+          <div class="container-fluied d-flex flex-wrap">
+            <div class="col-12 col-md-5 px-3 my-2 my-md-0">
+              <%= form.text_field "name", class: "form-control", placeholder: "Category Name" %>
+            </div>
+            <div class="col-12 col-md-5 px-0 px-lg-3 my-2 my-md-0 text-center">
+              <%= submit_tag "Create Menu Category", class: "btn btn-success w-75" %>
             </div>
           </div>
         <% end %>
-
       </div>
-    </div>
+  <% else %>
+      <div class="col-12 col-md-9 px-1">
   <% end %>
+  <% MenuCategory.order(:id).each do |catagory| %>
+        <div class="py-3 " id=<%= catagory.name %>>
+          <% if (is_admin) %>
+            <div class="d-flex justify-content-around">
+              <h2>
+                <%= catagory.name %>
+                <%= link_to edit_menu_category_path(id: catagory.id) do %>
+                  <i class="bi bi-pencil" style="font-size:20px"></i>
+                <% end %>
+              </h2>
+              <%= form_with(url: catagory, method: "put") do %>
+                <div class="form-check form-switch">
+                  <%= check_box_tag "status", nil, checked = catagory.status, class: "form-check-input", onclick: "this.form.submit()" %>
+                </div>
+              <% end %>
 
-</div>
+              <%= link_to catagory, method: :delete, class: "mx-3", data: { confirm: "Are you sure deleting #{catagory.name}?" } do %>
+                <i class="bi bi-trash-fill text-danger"></i>
+              <% end %>
+            </div>
+          <% else %>
+            <div>
+              <h2><%= catagory.name %> <%= "(currently unavailable)" unless catagory.status %></h2>
+            </div>
+          <% end %>
 
-<% unless @current_user && @current_user.admin? %>
+          <hr>
+
+          <div class="d-flex scroll-x">
+            <% if (is_admin) %>
+              <div class="col-6 col-sm-4 col-md-5 col-lg-4 col-xl-3 col-xxl-2 card">
+                Add new Item
+              </div>
+            <% end %>
+
+            <% catagory.menu_category_item.each do |m_item| %>
+              <% item = m_item.menu_item %>
+              <div class="col-6 col-sm-4 col-md-5 col-lg-4 col-xl-3 col-xxl-2 card" id="<%= item.name %>">
+                <%= image_tag "food" %>
+                <div class="card-body row row-col-1">
+                  <div class="col-12 px-0 px-md-3">
+                    <h5 class="card-title"> <%= item.name %> </h5>
+                  </div>
+                  <div class="col-12 px-0 px-md-3 h-50 scroll-y">
+                    <p class="card-text"><%= item.description %><p>
+                  </div>
+                  <div class="col-12 px-0 px-md-3 align-text-bottom mt-2">
+                    <div class = "d-flex justify-content-between">
+                      <p class="align-middle">₹<%= item.price %></p>
+                      <% if @current_user %>
+                        <% if @current_user.admin? %>
+                          <p>Edit</p>
+                          <%= form_with(url: item, method: "put") do %>
+                            <div class="form-check form-switch">
+                              <%= check_box_tag "status", nil, checked = item.status, class: "form-check-input", onclick: "this.form.submit()" %>
+                            </div>
+                          <% end %>
+                        <% elsif @current_user.cart_items.exists?(menu_item_id: item.id) %>
+                          <div class="btn-group btn-group-sm">
+                            <% crtItm = @current_user.cart_items.find_by(menu_item_id: item.id) %>
+                            <%= button_to "-", cart_item_path(id: crtItm.id, quantity: crtItm.quantity - 1), method: :put, class: "btn btn-outline-primary btn-sm" %>
+                            <a class="btn border-top border-bottom btn-sm"> <%= crtItm.quantity %> </a>
+                            <%= button_to "+", cart_item_path(id: crtItm.id, quantity: crtItm.quantity + 1), method: :put, class: "btn btn-outline-primary btn-sm" %>
+                          </div>
+                        <% elsif m_item.active? %>
+                            <%= button_to "Add", cart_items_path(itemId: item.id), method: :post, class: "btn btn-sm btn-primary" %>
+                        <% else %>
+                          <%= button_to "Add", cart_items_path(itemId: item.id), method: :post, class: "btn btn-sm btn-primary", disabled: "true" %>
+                        <% end %>
+                      <% else %>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#sign-in-Modal"> Add </button>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+  <% end %>
+    </div>
+
+<% unless (is_admin) %>
   <div class="d-none d-md-block col-md-3 card position-fixed end-0 p-3 m-1 h-85">
     <%= render partial: "cart_items/list" %>
   </div>
