@@ -4,7 +4,7 @@
   </div>
   <div class="modal-body">
     <div class="d-flex justify-content-center my-3">
-      <%= image_tag "avatar", size: "100", class: "rounded-circle" %>
+      <%= image_tag "avatar.png", size: "100", class: "rounded-circle" %>
 
       <% unless @current_user.clerk? %>
         <%= link_to edit_user_path(id: @current_user.id), class: "position-relative" do %>

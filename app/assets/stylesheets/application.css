@@ -32,7 +32,7 @@
   background: #555;
 }
 
-​ .scroll-y {
+.scroll-y {
   overflow-y: auto;
   scrollbar-width: thin;
 }
