@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
 
   def set_orders
     if current_user
-      @orders = @current_user.orders
+      @orders = @current_user.orders.order(:status_id, updated_at: :desc)
     end
   end
 end

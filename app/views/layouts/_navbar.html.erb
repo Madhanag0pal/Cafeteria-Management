@@ -40,7 +40,7 @@
                     <li> <%= link_to "All Order", orders_path, class: "dropdown-item" %> </li>
                   <% end %>
                   <% unless @current_user.admin? %>
-                    <li> <%= link_to "My Orders", orders_path, class: "dropdown-item" %> </li>
+                    <li> <%= link_to "My Orders", order_path(id: @current_user.id), method: :get, class: "dropdown-item" %> </li>
                   <% else %>
                     <li> <%= link_to "Manage", orders_path, class: "dropdown-item" %> </li>
                   <% end %>

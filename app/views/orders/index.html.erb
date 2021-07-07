@@ -5,8 +5,20 @@
         <h2> OrderId: #<%= order.id %> </h2>
         <h4> ₹ <%= order.price %> (<%= order.status.name %>)</h4>
       </div>
-      <div class="w-25">
-        <%= link_to "cancel", order, method: :delete, class: "btn btn-danger" %>
+      <div class="w-25 d-flex justify-content-center">
+
+        <% if order.pending? %>
+          <div class="col">
+            <% unless @current_user.customer? %>
+                <%= link_to "delever", order_path(id: order.id, status_id: 2), method: :put, data: { confirm: "Are you sure?" }, class: "btn btn-success" %>
+            <% end %>
+          </div>
+
+          <div class="col">
+            <%= link_to "cancel", order_path(id: order.id, status_id: 3), method: :put, class: "btn btn-danger" %>
+          </div>
+        <% end %>
+
       </div>
     </div>
     <hr>
