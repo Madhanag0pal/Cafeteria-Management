@@ -15,12 +15,31 @@
  *= require_self
  */
 
-.scroll-y {
+::-webkit-scrollbar {
+  width: 0.5em;
+  height: 0.5em
+}
+
+::-webkit-scrollbar-track {
+  background: #00000044;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ffffff88;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+​ .scroll-y {
   overflow-y: auto;
+  scrollbar-width: thin;
 }
 
 .scroll-x {
   overflow-x: auto;
+  scrollbar-width: thin;
 }
 
 p {

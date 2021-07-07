@@ -1,20 +1,22 @@
 <% @orders.each do |order| %>
   <div class="py-3">
     <div class="d-flex">
-      <div class="w-75">
+      <div class="col-8">
         <h2> OrderId: #<%= order.id %> </h2>
-        <h4> ₹ <%= order.price %> (<%= order.status.name %>)</h4>
+        <div class="d-flex justify-content-between">
+          <h4 class = "col-8"> ₹ <%= order.price %> (<%= order.status.name %>)</h4>
+          <span class = "col-4"><%= time_ago_in_words order.updated_at %> ago </span>
+        </div>
       </div>
-      <div class="w-25 d-flex justify-content-center">
-
+      <div class="col-4 d-flex align-items-center">
         <% if order.pending? %>
-          <div class="col">
+          <div class="col d-flex justify-content-center">
             <% unless @current_user.customer? %>
                 <%= link_to "delever", order_path(id: order.id, status_id: 2), method: :put, data: { confirm: "Are you sure?" }, class: "btn btn-success" %>
             <% end %>
           </div>
 
-          <div class="col">
+          <div class="col d-flex justify-content-center">
             <%= link_to "cancel", order_path(id: order.id, status_id: 3), method: :put, class: "btn btn-danger" %>
           </div>
         <% end %>
