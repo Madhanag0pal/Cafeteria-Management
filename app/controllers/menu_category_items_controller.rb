@@ -1,0 +1,2 @@
+class MenuCategoryItemsController < ApplicationController
+end
