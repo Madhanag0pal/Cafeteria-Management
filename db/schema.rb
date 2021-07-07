@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 2021_07_06_063357) do
     t.float "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "address_id", null: false
+    t.bigint "address_id"
     t.index ["address_id"], name: "index_orders_on_address_id"
     t.index ["status_id"], name: "index_orders_on_status_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
