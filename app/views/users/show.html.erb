@@ -5,8 +5,11 @@
   <div class="modal-body">
     <div class="d-flex justify-content-center my-3">
       <%= image_tag "avatar", size: "100", class: "rounded-circle" %>
-      <%= link_to edit_user_path(id: @current_user.id), class: "position-relative" do %>
-        <i class="bi bi-pencil position-absolute top-100 start-0 translate-middle" style="font-size:20px"></i>
+
+      <% unless @current_user.clerk? %>
+        <%= link_to edit_user_path(id: @current_user.id), class: "position-relative" do %>
+          <i class="bi bi-pencil position-absolute top-100 start-0 translate-middle" style="font-size:20px"></i>
+        <% end %>
       <% end %>
     </div>
     <hr>
@@ -28,6 +31,8 @@
     </div>
   </div>
   <div class="modal-footer justify-content-center">
-    <%= link_to "Delete Account", @current_user, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+    <% unless @current_user.clerk? %>
+      <%= link_to "Delete Account", @current_user, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+    <% end %>
   </div>
 </div>

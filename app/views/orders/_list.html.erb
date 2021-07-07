@@ -1,19 +1,14 @@
 <div class="row justify-content-around px-2">
   <div class="col-8">
-    <h5 class="text-center">Cart Items</h5>
+    <h5 class="text-center">Pending Order</h5>
   </div>
   <div class="col-4 text-center">
-      <% if @cart_items.present? %>
-        <%= link_to cart_item_path(id: 0), method: :delete do %>
-          <i class="bi bi-cart-x-fill btn btn-outline-danger btn-sm my-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Clear Cart"></i>
-        <% end %>
-      <% end %>
   </div>
 </div>
 <div class="row border-top scroll-y h-75">
   <div class="col-12 border">
     <% if @cart_items.present? %>
-      <% @cart_items.order(:id).each do |item| %>
+      <% @cart_items.each do |item| %>
         <div class="row border-bottom  py-1">
           <div class="col-8 text-start w-50 px-1">
             <p><%= item.menu_item.name %><p>
@@ -43,8 +38,6 @@
       <% else %>
         <%= button_to "Checkout", orders_path, method: :post, data: { confirm: "Are you sure?" }, class: "btn btn-outline-primary btn-sm " %>
       <% end %>
-
-
     </div>
   <% end %>
 </div>

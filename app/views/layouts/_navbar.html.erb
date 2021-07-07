@@ -10,9 +10,9 @@
 
     <div class="collapse navbar-collapse justify-content-between" id="navbarColor">
       <ul class="navbar-nav mb-2 mb-lg-0">
-        <% MenuCategory.all.each do |catagory| %>
+        <% MenuCategory.order(:id).each do |catagory| %>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href=<%= "#" + catagory.name %> ><%= catagory.name %></a>
+            <a class="nav-link active" aria-current="page" href=<%= "/#" + catagory.name %> ><%= catagory.name %></a>
           </li>
         <% end %>
       </ul>
@@ -36,8 +36,14 @@
                   <li> <%= link_to "My Profile", @current_user, method: :get, class: "dropdown-item" %> </li>
                   <% if @current_user.customer? %>
                     <li> <%= link_to "My Addresses", addresses_path, class: "dropdown-item" %> </li>
+                  <% else %>
+                    <li> <%= link_to "All Order", orders_path, class: "dropdown-item" %> </li>
                   <% end %>
-                  <li> <%= link_to "My Orders", orders_path, class: "dropdown-item" %> </li>
+                  <% unless @current_user.admin? %>
+                    <li> <%= link_to "My Orders", orders_path, class: "dropdown-item" %> </li>
+                  <% else %>
+                    <li> <%= link_to "Manage", orders_path, class: "dropdown-item" %> </li>
+                  <% end %>
                 </ul>
               </li>
             </ul>
