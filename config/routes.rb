@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :orders, except: [:edit]
   resources :addresses
   resources :menu_category_items
+  resources :menu_categories
 
   get "/signup" => "users#new", as: :signup
   get "/signin" => "sessions#new", as: :new_sessions
