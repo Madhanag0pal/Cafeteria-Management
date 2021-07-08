@@ -36,7 +36,7 @@
                 </div>
               <% end %>
 
-              <%= link_to catagory, method: :delete, class: "mx-3", data: { confirm: "Are you sure deleting #{catagory.name}?" } do %>
+              <%= link_to catagory, method: :delete, class: "btn btn-outline-danger", data: { confirm: "Are you sure deleting #{catagory.name}?" } do %>
                 <!-- <i class="bi bi-trash-fill text-danger"></i> -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                   <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
@@ -52,11 +52,13 @@
           <hr>
 
           <div class="d-flex scroll-x">
+          <!--
             <% if (is_admin) %>
               <div class="col-6 col-sm-4 col-md-5 col-lg-4 col-xl-3 col-xxl-2 card">
                 Add new Item
               </div>
             <% end %>
+          -->
 
             <% catagory.menu_category_item.each do |m_item| %>
               <% item = m_item.menu_item %>
@@ -73,9 +75,8 @@
                       <p class="align-middle">₹<%= item.price %></p>
                       <% if @current_user %>
                         <% if @current_user.admin? %>
-                          <p>Edit</p>
+                          <% # <p>Edit</p> %>
                           <%= form_with(url: item, method: "put") do %>
-
                             <div class="form-check form-switch">
                               <%= check_box_tag "status", nil, checked = item.status, class: "form-check-input", onclick: "this.form.submit()" %>
                             </div>

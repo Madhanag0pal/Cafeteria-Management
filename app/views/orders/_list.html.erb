@@ -1,43 +1,43 @@
-<div class="row justify-content-around px-2">
-  <div class="col-8">
-    <h5 class="text-center">Pending Order</h5>
-  </div>
-  <div class="col-4 text-center">
-  </div>
-</div>
-<div class="row border-top scroll-y h-75">
-  <div class="col-12 border">
-    <% if @cart_items.present? %>
-      <% @cart_items.each do |item| %>
-        <div class="row border-bottom  py-1">
-          <div class="col-8 text-start w-50 px-1">
-            <p><%= item.menu_item.name %><p>
+<% orders.each do |order| %>
+  <div class="py-3">
+    <div class="d-flex">
+      <div class="col-8">
+        <h4> OrderId: #<%= order.id %> </h4>
+        <div class="d-flex justify-content-between">
+          <h4 class = "col-8"> ₹ <%= order.price %> (<%= order.status.name %>)</h4>
+          <span class = "col-4"><%= time_ago_in_words order.updated_at %> ago </span>
+        </div>
+      </div>
+      <div class="col-4 d-flex align-items-center">
+        <% if order.pending? %>
+          <div class="col d-flex justify-content-center">
+            <% unless @current_user.customer? %>
+                <%= link_to "delever", order_path(id: order.id, status_id: 2), method: :put, data: { confirm: "Are you sure?" }, class: "btn btn-success" %>
+            <% end %>
           </div>
-          <div class="col-4 text-end w-50 px-1">
-            <p class="m-0">₹<%= item.price %><p>
-            <div class="btn-group btn-group-sm">
-                  <%= link_to "-", cart_item_path(id: item.id, quantity: item.quantity - 1), method: :put, class: "btn btn-outline-primary" %>
-                  <a class="btn border-top border-bottom"> <%= item.quantity %> </a>
-                  <%= link_to "+", cart_item_path(id: item.id, quantity: item.quantity + 1), method: :put, class: "btn btn-outline-primary" %>
+
+          <div class="col d-flex justify-content-center">
+            <%= link_to "cancel", order_path(id: order.id, status_id: 3), method: :put, class: "btn btn-danger" %>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+    <hr>
+    <div class="d-flex scroll-x">
+      <% order.order_items.each do |item| %>
+        <div class="col-6 col-sm-3 col-xl-2 card" id="<%= item.name %>">
+          <div class="card-body row row-col-1">
+            <div class="col-12">
+              <h5 class="card-title"> <%= item.name %> </h5>
+            </div>
+            <div class="col-12 align-text-bottom mt-2">
+                <p class="align-middle">quantity: <%= item.quantity %></p>
+                <p class="align-middle">₹ <%= item.price %></p>
             </div>
           </div>
         </div>
       <% end %>
-    <% end %>
+    </div>
   </div>
-</div>
-
-<div class= "row row-cols-1 row-cols-lg-2 text-center my-2">
-  <% if @cart_items.present? %>
-    <div class= "col m-auto">
-      <%= "Subtotal: ₹" + @cart_items.price.to_s %>
-    </div>
-    <div class= "col m-auto">
-      <% if @current_user.customer? %>
-        <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#checkout-Modal"> Checkout </button>
-      <% else %>
-        <%= button_to "Checkout", orders_path, method: :post, data: { confirm: "Are you sure?" }, class: "btn btn-outline-primary btn-sm " %>
-      <% end %>
-    </div>
-  <% end %>
-</div>
+<% end %>

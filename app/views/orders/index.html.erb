@@ -1,43 +1,20 @@
-<% @orders.each do |order| %>
-  <div class="py-3">
-    <div class="d-flex">
-      <div class="col-8">
-        <h2> OrderId: #<%= order.id %> </h2>
-        <div class="d-flex justify-content-between">
-          <h4 class = "col-8"> ₹ <%= order.price %> (<%= order.status.name %>)</h4>
-          <span class = "col-4"><%= time_ago_in_words order.updated_at %> ago </span>
-        </div>
-      </div>
-      <div class="col-4 d-flex align-items-center">
-        <% if order.pending? %>
-          <div class="col d-flex justify-content-center">
-            <% unless @current_user.customer? %>
-                <%= link_to "delever", order_path(id: order.id, status_id: 2), method: :put, data: { confirm: "Are you sure?" }, class: "btn btn-success" %>
-            <% end %>
-          </div>
-
-          <div class="col d-flex justify-content-center">
-            <%= link_to "cancel", order_path(id: order.id, status_id: 3), method: :put, class: "btn btn-danger" %>
-          </div>
-        <% end %>
-
-      </div>
-    </div>
-    <hr>
-    <div class="d-flex scroll-x">
-      <% order.order_items.each do |item| %>
-        <div class="col-6 col-sm-3 col-xl-2 card" id="<%= item.name %>">
-          <div class="card-body row row-col-1">
-            <div class="col-12">
-              <h5 class="card-title"> <%= item.name %> </h5>
-            </div>
-            <div class="col-12 align-text-bottom mt-2">
-                <p class="align-middle">quantity: <%= item.quantity %></p>
-                <p class="align-middle">₹ <%= item.price %></p>
-            </div>
-          </div>
-        </div>
-      <% end %>
+<div class="col-12 m-auto ps-1">
+  <div id="Pending Orders">
+    <h3>Pending Orders</h3>
+    <div class="pt-2 px-3">
+      <%= render partial: "list", locals: { orders: @orders.pending } %>
     </div>
   </div>
-<% end %>
+  <div id="Delevered Orders" class="pt-2">
+    <h3>Delevered Orders</h3>
+    <div class="pt-2 px-3">
+      <%= render partial: "list", locals: { orders: @orders.delevered } %>
+    </div>
+  </div>
+  <div id="Cancled Orders" class="pt-2">
+    <h3>Cancled Orders</h3>
+    <div class="pt-2 px-3">
+      <%= render partial: "list", locals: { orders: @orders.canceled } %>
+    </div>
+  </div>
+</div>
