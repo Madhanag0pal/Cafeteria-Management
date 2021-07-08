@@ -1,24 +1,45 @@
-# README
+# [Cafeteria Management App](https://madhan-cafeteria-management.herokuapp.com)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This app is built to manageing a restarunt' orders. This app has three personas **admin, clerk, customer**. Only a customer can signup, other others cannot. An admin can create, update, delete other admins and clerks. Admin can create, update, delete Menu category and Menu Item. Admin and clerk can view all orders and mark as cancel or delever. Customers and clerk can view all menu category, menu item, and can cart menu Items any menu item that is available and place order. Customers can view, cancel only their orders.
 
-Things you may want to cover:
+## [This is my DB Model](https://dbdiagram.io/embed/60d88c60dd6a597148216f3c)
 
-* Ruby version
 
-* System dependencies
 
-* Configuration
+## Sample Users
 
-* Database creation
+|Email               | Password|
+| ----               | ----    |
+|owner@email.com     | owner   |
+|clerk@email.com     | clerk   |
+|customer@email.com  | customer|
 
-* Database initialization
 
-* How to run the test suite
+## [Home page](https://madhan-cafeteria-management.herokuapp.com)
+![Home Page Image](/images/homepage.png)
 
-* Services (job queues, cache servers, search engines, etc.)
+## Sign-up page
+![Sign-up Page Image](images/sign-up-1.png)
+![Sign-up Page Image](images/sign-up-2.png)
 
-* Deployment instructions
+## Sign-in page
+![Sign-in Page Image](images/sign-in-1.png)
+![Sign-in Page Image](images/sign-in-2.png)
 
-* ...
+## Home page for Admin
+![Home Page Image](/images/admin-homepage.png)
+
+## Home page for Clerk and Customer
+![Home Page Image](/images/customer-homepage.png)
+
+## User Profile
+![User Profile Image](/images/user-profile.png)
+
+## Orders Page for Admin and Clerk
+![Admin's orders Image](/images/admin-orders.png)
+
+## Orders Page for Customer
+![Customer's orders Image](/images/customer-orders.png)
+
+## Cart Items Page
+![Cart Items Page Image](/images/cart-items.png)
