@@ -1,24 +1,42 @@
-# README
+# [Cafeteria Management App](https://madhan-cafeteria-management.herokuapp.com)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This app is built to manage a restarunt. This app has Three personas admin, clerk, customer. Only a customer can signup, other others cannot. An admin can create, update, delete other admins and clerks. Admin can create, update, delete Menu category and Menu Item. Admin and clerk can view all orders and mark as cancel or delever. Customers and clerk can view all menu category, menu item, and can cart menu Items any menu item that is available and place order. Customers can view, cancel only their orders.
 
-Things you may want to cover:
 
-* Ruby version
 
-* System dependencies
+## Sample Users
 
-* Configuration
+|Email               | Password|
+| ----               | ----    |
+|owner@email.com     | owner   |
+|clerk@email.com     | clerk   |
+|customer@email.com  | customer|
 
-* Database creation
+## [Home page](https://madhan-cafeteria-management.herokuapp.com)
+![Home Page Image](/images/homepage.png)
 
-* Database initialization
+## Sign-up page
+![Sign-up Page Image](images/sign-up-1.png)
+![Sign-up Page Image](images/sign-up-2.png)
 
-* How to run the test suite
+## Sign-in page
+![Sign-in Page Image](images/sign-in-1.png)
+![Sign-in Page Image](images/sign-in-2.png)
 
-* Services (job queues, cache servers, search engines, etc.)
+## Home page for Admin
+![Home Page Image](/images/admin-homepage.png)
 
-* Deployment instructions
+## Home page for Clerk and Customer
+![Home Page Image](/images/customer-homepage.png)
 
-* ...
+## User Profile
+![User Profile Image](/images/user-profile.png)
+
+## Orders Page for Admin and Clerk
+![Admin's orders Image](/images/admin-orders.png)
+
+## Orders Page for Customer
+![Customer's orders Image](/images/customer-orders.png)
+
+## Cart Items Page
+![Cart Items Page Image](/images/cart-items.png)
