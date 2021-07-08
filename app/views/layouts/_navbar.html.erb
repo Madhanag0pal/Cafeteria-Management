@@ -9,7 +9,7 @@
       </svg>
     </a>
 
-    <div class="col-6 col-sm-9 col-md-10 col-lg-6 scroll-x mb-2 mb-lg-0">
+    <div class="col-8 col-sm-9 col-md-10 col-lg-6 scroll-x mb-2 mb-lg-0">
       <ul class="navbar-nav flex row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 flex-row ">
         <% MenuCategory.order(:id).each do |catagory| %>
           <li class="nav-item d-flex col justify-content-center">
@@ -42,7 +42,7 @@
                   <i class="bi bi-person-circle"></i>
                   <%= @current_user.name %>
                 </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <ul class="dropdown-menu position-absolute" aria-labelledby="navbarDropdownMenuLink">
                   <li> <%= link_to "My Profile", @current_user, method: :get, class: "dropdown-item" %> </li>
                   <% if @current_user.customer? %>
                     <li> <%= link_to "My Addresses", addresses_path, class: "dropdown-item" %> </li>

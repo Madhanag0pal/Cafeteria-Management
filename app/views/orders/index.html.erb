@@ -1,20 +1,33 @@
-<div class="col-12 m-auto ps-1">
-  <div id="Pending Orders">
-    <h3>Pending Orders</h3>
-    <div class="pt-2 px-3">
-      <%= render partial: "list", locals: { orders: @orders.pending } %>
+<div class="col-12 px-0">
+  <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending" type="button" role="tab" aria-controls="pending" aria-selected="true">Pending</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="delevered-tab" data-bs-toggle="tab" data-bs-target="#delevered" type="button" role="tab" aria-controls="delevered" aria-selected="false">Delevered</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="cancled-tab" data-bs-toggle="tab" data-bs-target="#cancled" type="button" role="tab" aria-controls="cancled" aria-selected="false">Cancled</button>
+    </li>
+  </ul>
+
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
+      <div class="pt-2 px-3 py-3">
+        <%= render partial: "list", locals: { orders: @orders.pending } %>
+      </div>
     </div>
-  </div>
-  <div id="Delevered Orders" class="pt-2">
-    <h3>Delevered Orders</h3>
-    <div class="pt-2 px-3">
-      <%= render partial: "list", locals: { orders: @orders.delevered } %>
+
+    <div class="tab-pane fade" id="delevered" role="tabpanel" aria-labelledby="delevered-tab">
+      <div class="pt-2 px-3">
+        <%= render partial: "list", locals: { orders: @orders.delevered } %>
+      </div>
     </div>
-  </div>
-  <div id="Cancled Orders" class="pt-2">
-    <h3>Cancled Orders</h3>
-    <div class="pt-2 px-3">
-      <%= render partial: "list", locals: { orders: @orders.canceled } %>
+
+    <div class="tab-pane fade" id="cancled" role="tabpanel" aria-labelledby="cancled-tab">
+      <div class="pt-2 px-3">
+        <%= render partial: "list", locals: { orders: @orders.canceled } %>
+      </div>
     </div>
   </div>
 </div>
