@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
     current_user_id = session[:current_user_id]
     if current_user_id
       @current_user = User.find(current_user_id)
+      @role = current_user.role
     else
       nil
     end

@@ -16,8 +16,8 @@ class OrdersController < ApplicationController
 
   def create
     if @cart_items
-      order = Order.create(user_id: @current_user.id, address_id: params[:address_id])
-      @cart_items.place_order(order, params[:address_id])
+      order = Order.create(user_id: @current_user.id, address: params[:address])
+      @cart_items.place_order(order)
     end
     redirect_to root_path
   end
