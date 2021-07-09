@@ -17,6 +17,7 @@
   <% else %>
       <div class="col-12 col-md-9 px-1">
   <% end %>
+
   <% MenuCategory.order(:id).each do |catagory| %>
         <div class="py-3 " id=<%= catagory.name %>>
           <% if (is_admin) %>
@@ -52,20 +53,18 @@
           <hr>
 
           <div class="d-flex scroll-x">
-          <!--
             <% if (is_admin) %>
               <div class="col-6 col-sm-4 col-md-5 col-lg-4 col-xl-3 col-xxl-2 card">
-                Add new Item
+                <%= link_to "Add new Item", new_menu_category_item_path(menu_catagory_id: catagory.id), method: :get %>
               </div>
             <% end %>
-          -->
 
-            <% catagory.menu_category_item.each do |m_item| %>
-              <% item = m_item.menu_item %>
+            <% catagory.menu_category_item.each do |menu_catagory_item| %>
+              <% item = menu_catagory_item.menu_item %>
               <div class="col-6 col-sm-4 col-md-5 col-lg-4 col-xl-3 col-xxl-2 card" id="<%= item.name %>">
                 <div class="card-body row row-col-1">
                   <div class="col-12 px-0 px-md-3">
-                    <h5 class="card-title"> <%= item.name %> </h5>
+                    <h5 class="card-title"> <%= item.name %> <%= ":(" unless item.status %> </h5>
                   </div>
                   <div class="col-12 px-0 px-md-3 h-50 scroll-y">
                     <p class="card-text"><%= item.description %><p>
@@ -88,7 +87,7 @@
                             <a class="btn border-top border-bottom btn-sm"> <%= crtItm.quantity %> </a>
                             <%= button_to "+", cart_item_path(id: crtItm.id, quantity: crtItm.quantity + 1), method: :put, class: "btn btn-outline-primary btn-sm" %>
                           </div>
-                        <% elsif m_item.active? %>
+                        <% elsif menu_catagory_item.active? %>
                             <%= button_to "Add", cart_items_path(itemId: item.id), method: :post, class: "btn btn-sm btn-primary" %>
                         <% else %>
                           <%= button_to "Add", cart_items_path(itemId: item.id), method: :post, class: "btn btn-sm btn-primary", disabled: "true" %>
