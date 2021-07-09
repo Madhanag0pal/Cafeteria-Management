@@ -14,14 +14,14 @@ class User < ApplicationRecord
   end
 
   def admin?
-    role == Role.find(1)
+    role.admin?
   end
 
   def clerk?
-    role == Role.find(2)
+    role.clerk?
   end
 
   def customer?
-    role == Role.find(3)
+    role.customer?
   end
 end

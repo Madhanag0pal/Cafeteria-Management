@@ -6,4 +6,16 @@ class Role < ApplicationRecord
   def to_s
     "#{name}"
   end
+
+  def admin?
+    id == 1
+  end
+
+  def clerk?
+    id == 2
+  end
+
+  def customer?
+    id == 3
+  end
 end

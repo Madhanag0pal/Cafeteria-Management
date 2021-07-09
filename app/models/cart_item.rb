@@ -2,8 +2,8 @@ class CartItem < ApplicationRecord
   belongs_to :user
   belongs_to :menu_item
 
-  def to_s
-    menu_item
+  def name
+    menu_item.name
   end
 
   def price
@@ -14,9 +14,9 @@ class CartItem < ApplicationRecord
     all.map { |item| item.price }.sum()
   end
 
-  def self.place_order(order,address_id)
+  def self.place_order(order)
     all.each do |item|
-      OrderItem.create(order_id: order.id, menu_item_id: item.menu_item_id, quantity: item.quantity, price: item.price)
+      OrderItem.create(order_id: order.id, name: item.name, quantity: item.quantity, price: item.price)
     end
     order.price = all.price
     order.save
