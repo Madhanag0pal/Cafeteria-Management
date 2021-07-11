@@ -6,11 +6,10 @@
 
     <div class="modal-body p-3 h-100 scroll-y" style="max-height: 250px;">
       <% @menu_items.each do |item| %>
-
-          <%= form_with url: menu_category_items_path(menu_item_id: item.id, menu_catagory_id: @category.id) do %>
+          <%= form_with url: menu_category_items_path(menu_item_id: item.id, menu_category_id: @category.id) do %>
             <div class="form-check px-3 py-1 form-switch d-flex justify-content-between">
               <%= label "add", item.name, class: "col-10" %>
-              <%= check_box_tag "add", nil, checked = @category_items.exists?(item.id), class: "align-self-center form-check-input", onclick: "this.form.submit()" %>
+              <%= check_box_tag "add", nil, @category_items.include?(item), class: "align-self-center form-check-input", onclick: "this.form.submit()" %>
             </div>
           <% end %>
 
