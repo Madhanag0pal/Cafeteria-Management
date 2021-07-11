@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
       @current_user = User.find(current_user_id)
       @role = current_user.role
     else
+      @role = Role.last
       nil
     end
   end

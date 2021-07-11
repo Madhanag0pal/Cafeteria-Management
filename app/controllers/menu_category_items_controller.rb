@@ -9,9 +9,9 @@ class MenuCategoryItemsController < ApplicationController
   end
 
   def new
-    @category = MenuCategory.find(params[:menu_catagory_id])
-    @category_items = MenuCategoryItem.where(menu_category_id: @category.id)
-    @menu_items = MenuItem.all
+    @category = MenuCategory.find(params[:menu_category_id])
+    @category_items = MenuCategoryItem.where(menu_category_id: @category.id).menu_item
+    @menu_items = MenuItem.order(:id)
   end
 
   private
