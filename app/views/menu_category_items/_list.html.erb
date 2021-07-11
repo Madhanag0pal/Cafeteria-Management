@@ -1,7 +1,9 @@
 <div class="d-flex scroll-x">
   <% if @role.admin? %>
     <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2 card">
-      <%= link_to "Add new Item", new_menu_category_item_path(menu_category_id: category.id), method: :get %>
+      <div class="d-flex justify-content-center align-items-center h-100">
+        <%= link_to "Add new Item", new_menu_category_item_path(menu_category_id: category.id), method: :get %>
+      </div>
     </div>
   <% end %>
 
