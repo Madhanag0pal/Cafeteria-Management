@@ -12,12 +12,13 @@ class CartItemsController < ApplicationController
   end
 
   def update
-    cart_item = @cart_items.find(params[:id])
     quantity = params[:quantity].to_i
-    if quantity <= 0
-      cart_item.destroy()
-    else
-      cart_item.update_attribute(:quantity, quantity)
+    if cart_item = @cart_items.find_by(id: params[:id])
+      if quantity <= 0
+        cart_item.destroy()
+      else
+        cart_item.update_attribute(:quantity, quantity)
+      end
     end
     redirect_to root_path
   end

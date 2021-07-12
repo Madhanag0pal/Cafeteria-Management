@@ -16,7 +16,7 @@ class Order < ApplicationRecord
   end
 
   def self.pending
-    where(status: 1)
+    where(status: 1).reverse
   end
 
   def self.delevered
