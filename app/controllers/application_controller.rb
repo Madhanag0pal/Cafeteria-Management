@@ -27,8 +27,12 @@ class ApplicationController < ActionController::Base
   end
 
   def set_orders
-    if current_user
-      @orders = @current_user.orders.order(:status_id, updated_at: :desc)
+    if @current_user
+      if @current_user.customer?
+        @orders = @current_user.orders.order(:status_id, updated_at: :desc)
+      else
+        @orders = Order.all.order(:status_id, updated_at: :desc)
+      end
     end
   end
 end
