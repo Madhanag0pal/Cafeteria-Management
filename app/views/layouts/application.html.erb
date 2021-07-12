@@ -8,6 +8,7 @@
 
     <%= stylesheet_link_tag "application", media: "all", 'data-turbolinks-track': "reload" %>
     <%= javascript_pack_tag "application", 'data-turbolinks-track': "reload" %>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
 
   <body>
@@ -18,11 +19,25 @@
     <!-- Sign In Modal -->
     <div class="modal fade" id="sign-in-Modal" tabindex="-1" aria-labelledby="signInModalLabel" aria-hidden="true">
       <%= render template: "sessions/new" %>
+      <script>
+        $(document).ready(function(){
+            $("#sign-in-Modal").on('shown.bs.modal', function(){
+                $(this).find('#email').focus();
+            });
+        });
+      </script>
     </div>
 
     <!-- Sign Up Modal -->
     <div class="modal fade" id="sign-up-Modal" tabindex="-1" aria-labelledby="signUpModalLabel" aria-hidden="true">
       <%= render template: "users/new" %>
+      <script>
+        $(document).ready(function(){
+            $("#sign-up-Modal").on('shown.bs.modal', function(){
+                $(this).find('#name').focus();
+            });
+        });
+      </script>
     </div>
 
     <!-- Checkout Modal  -->
@@ -32,7 +47,29 @@
         <%= render partial: "cart_items/checkout" %>
       </div>
     <% end %>
-
     <%= yield %>
+
+    <% if @current_user && !@role.admin? %>
+      <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+          <h5 id="offcanvasRightLabel">Cart Items</h5>
+
+          <% if @cart_items.present? %>
+            <%= button_to cart_item_path(id: 0), method: :delete, class: "btn btn-outline-danger btn-sm ms-3" do %>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-x-fill" viewBox="0 0 16 16">
+                  <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7.354 5.646 8.5 6.793l1.146-1.147a.5.5 0 0 1 .708.708L9.207 7.5l1.147 1.146a.5.5 0 0 1-.708.708L8.5 8.207 7.354 9.354a.5.5 0 1 1-.708-.708L7.793 7.5 6.646 6.354a.5.5 0 1 1 .708-.708z"/>
+              </svg>
+            <% end %>
+          <% end %>
+
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <%= render partial: "cart_items/list" %>
+        </div>
+      </div>
+    <% end %>
+
+    <%= render partial: "layouts/notifications" %>
   </body>
 </html>

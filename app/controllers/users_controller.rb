@@ -30,7 +30,9 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    deletedUser = User.destroy(params[:id])
-    render plain: "User #{deletedUser} deleted successfully"
+    @current_user.destroy
+    @role = nil
+    session[:current_user_id] = nil
+    redirect_to root_path
   end
 end

@@ -1,0 +1,54 @@
+<div class="d-flex scroll-x">
+  <% if @role.admin? %>
+    <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2 card">
+      <div class="d-flex justify-content-center align-items-center h-100">
+        <%= link_to "Add new Item", new_menu_category_item_path(menu_category_id: category.id), method: :get %>
+      </div>
+    </div>
+  <% end %>
+
+  <% category.menu_category_item.each do |menu_category_item| %>
+    <% menu_item = menu_category_item.menu_item %>
+    <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2 card" id="<%= menu_item.name %>">
+      <div class="card-body row row-col-1 ">
+
+        <%= image_tag "food.png", class: "" %>
+        <div class="col-12 px-0 px-md-3">
+          <h5 class="card-title"> <%= menu_item.name %> <%= ":(" unless menu_item.status %> </h5>
+        </div>
+
+        <div class="col-12 px-0 px-md-3 scroll-y" style="height:50px">
+          <p class="card-text"><%= menu_item.description %><p>
+        </div>
+
+        <div class="col-12 px-0 px-md-3 align-text-bottom mt-2">
+          <div class = "d-flex justify-content-between">
+            <p class="align-middle">₹<%= menu_item.price %></p>
+            <% if @current_user %>
+              <% if @current_user.admin? %>
+                <% # <p>Edit</p> %>
+                <%= form_with(url: menu_item, method: "put") do %>
+                  <div class="form-check form-switch">
+                    <%= check_box_tag "status", nil, checked = menu_item.status, class: "form-check-input", onclick: "this.form.submit()" %>
+                  </div>
+                <% end %>
+              <% elsif @current_user.cart_items.exists?(menu_item_id: menu_item.id) %>
+                <div class="btn-group btn-group-sm">
+                  <% crtItm = @current_user.cart_items.find_by(menu_item_id: menu_item.id) %>
+                  <%= button_to "-", cart_item_path(id: crtItm.id, quantity: crtItm.quantity - 1), method: :put, class: "btn btn-outline-primary btn-sm", disabled: menu_category_item.available? %>
+                  <a class="btn border-top border-bottom btn-sm"> <%= crtItm.quantity %> </a>
+                  <%= button_to "+", cart_item_path(id: crtItm.id, quantity: crtItm.quantity + 1), method: :put, class: "btn btn-outline-primary btn-sm", disabled: menu_category_item.available? %>
+                </div>
+              <% else %>
+                <%= button_to "Add", cart_items_path(itemId: menu_item.id), method: :post, class: "btn btn-sm btn-primary", disabled: menu_category_item.available? %>
+              <% end %>
+            <% else %>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#sign-in-Modal"> Add </button>
+            <% end %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  <% end %>
+</div>

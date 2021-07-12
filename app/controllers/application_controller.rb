@@ -13,7 +13,9 @@ class ApplicationController < ActionController::Base
     current_user_id = session[:current_user_id]
     if current_user_id
       @current_user = User.find(current_user_id)
+      @role = current_user.role
     else
+      @role = Role.last
       nil
     end
   end
@@ -25,8 +27,12 @@ class ApplicationController < ActionController::Base
   end
 
   def set_orders
-    if current_user
-      @orders = @current_user.orders.order(:status_id, updated_at: :desc)
+    if @current_user
+      if @current_user.customer?
+        @orders = @current_user.orders.order(:status_id, updated_at: :desc)
+      else
+        @orders = Order.all.order(:status_id, updated_at: :desc)
+      end
     end
   end
 end

@@ -1,42 +1,39 @@
 <div class="container-fluid row px-1 m-0">
-  <% is_admin = @current_user && @current_user.admin? %>
-  <% if (is_admin) %>
-    <div class="col-10 px-1 mx-auto">
-      <div class="py-3 text-center">
-        <%= form_with url: menu_categories_path do |form| %>
-          <div class="container-fluied d-flex flex-wrap">
-            <div class="col-12 col-md-5 px-3 my-2 my-md-0">
-              <%= form.text_field "name", class: "form-control", placeholder: "Category Name" %>
+    <div class="col-12 px-1 mx-auto">
+    <% if @role.admin? %>
+        <div class="py-3 text-center">
+          <%= form_with url: menu_categories_path do |form| %>
+            <div class="container-fluied d-flex flex-wrap justify-content-center">
+              <div class="col-12 col-md-4 px-3 my-2 my-md-0">
+                <%= form.text_field "name", class: "form-control", placeholder: "Category Name" %>
+              </div>
+              <div class="col-12 col-md-4 px-0 px-lg-3 my-2 my-md-0 text-center">
+                <%= submit_tag "Create Menu Category", class: "btn btn-success w-75" %>
+              </div>
             </div>
-            <div class="col-12 col-md-5 px-0 px-lg-3 my-2 my-md-0 text-center">
-              <%= submit_tag "Create Menu Category", class: "btn btn-success w-75" %>
-            </div>
-          </div>
-        <% end %>
-      </div>
-  <% else %>
-      <div class="col-12 col-md-9 px-1">
-  <% end %>
-  <% MenuCategory.order(:id).each do |catagory| %>
-        <div class="py-3 " id=<%= catagory.name %>>
-          <% if (is_admin) %>
+          <% end %>
+        </div>
+    <% end %>
+
+  <% MenuCategory.order(:id).each do |category| %>
+        <div class="py-3 " id=<%= category.name %>>
+          <% if @role.admin? %>
             <div class="d-flex justify-content-around">
               <h2>
-                <%= catagory.name %>
-                <%= link_to edit_menu_category_path(id: catagory.id) do %>
-                  <!-- <i class="bi bi-pencil" style="font-size:20px"></i> -->
+                <%= category.name %>
+                <%= link_to edit_menu_category_path(id: category.id) do %>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                     <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
                   </svg>
                 <% end %>
               </h2>
-              <%= form_with(url: catagory, method: "put") do %>
+              <%= form_with(url: category, method: "put") do %>
                 <div class="form-check form-switch">
-                  <%= check_box_tag "status", nil, checked = catagory.status, class: "form-check-input", onclick: "this.form.submit()" %>
+                  <%= check_box_tag "status", nil, checked = category.status, class: "form-check-input", onclick: "this.form.submit()" %>
                 </div>
               <% end %>
 
-              <%= link_to catagory, method: :delete, class: "btn btn-outline-danger", data: { confirm: "Are you sure deleting #{catagory.name}?" } do %>
+              <%= link_to category, method: :delete, class: "btn btn-outline-danger", data: { confirm: "Are you sure deleting #{category.name}?" } do %>
                 <!-- <i class="bi bi-trash-fill text-danger"></i> -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                   <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
@@ -45,69 +42,12 @@
             </div>
           <% else %>
             <div>
-              <h2><%= catagory.name %> <%= "(currently unavailable)" unless catagory.status %></h2>
+              <h2> <%= category.name %> <%= "(N/A)" unless category.status %> </h2>
             </div>
           <% end %>
 
           <hr>
-
-          <div class="d-flex scroll-x">
-          <!--
-            <% if (is_admin) %>
-              <div class="col-6 col-sm-4 col-md-5 col-lg-4 col-xl-3 col-xxl-2 card">
-                Add new Item
-              </div>
-            <% end %>
-          -->
-
-            <% catagory.menu_category_item.each do |m_item| %>
-              <% item = m_item.menu_item %>
-              <div class="col-6 col-sm-4 col-md-5 col-lg-4 col-xl-3 col-xxl-2 card" id="<%= item.name %>">
-                <div class="card-body row row-col-1">
-                  <div class="col-12 px-0 px-md-3">
-                    <h5 class="card-title"> <%= item.name %> </h5>
-                  </div>
-                  <div class="col-12 px-0 px-md-3 h-50 scroll-y">
-                    <p class="card-text"><%= item.description %><p>
-                  </div>
-                  <div class="col-12 px-0 px-md-3 align-text-bottom mt-2">
-                    <div class = "d-flex justify-content-between">
-                      <p class="align-middle">₹<%= item.price %></p>
-                      <% if @current_user %>
-                        <% if @current_user.admin? %>
-                          <% # <p>Edit</p> %>
-                          <%= form_with(url: item, method: "put") do %>
-                            <div class="form-check form-switch">
-                              <%= check_box_tag "status", nil, checked = item.status, class: "form-check-input", onclick: "this.form.submit()" %>
-                            </div>
-                          <% end %>
-                        <% elsif @current_user.cart_items.exists?(menu_item_id: item.id) %>
-                          <div class="btn-group btn-group-sm">
-                            <% crtItm = @current_user.cart_items.find_by(menu_item_id: item.id) %>
-                            <%= button_to "-", cart_item_path(id: crtItm.id, quantity: crtItm.quantity - 1), method: :put, class: "btn btn-outline-primary btn-sm" %>
-                            <a class="btn border-top border-bottom btn-sm"> <%= crtItm.quantity %> </a>
-                            <%= button_to "+", cart_item_path(id: crtItm.id, quantity: crtItm.quantity + 1), method: :put, class: "btn btn-outline-primary btn-sm" %>
-                          </div>
-                        <% elsif m_item.active? %>
-                            <%= button_to "Add", cart_items_path(itemId: item.id), method: :post, class: "btn btn-sm btn-primary" %>
-                        <% else %>
-                          <%= button_to "Add", cart_items_path(itemId: item.id), method: :post, class: "btn btn-sm btn-primary", disabled: "true" %>
-                        <% end %>
-                      <% else %>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#sign-in-Modal"> Add </button>
-                      <% end %>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-          </div>
+          <%= render partial: "menu_category_items/list", locals: { category: category } %>
         </div>
   <% end %>
-    </div>
-
-<% unless (is_admin) %>
-  <div class="d-none d-md-block col-md-3 card position-fixed end-0 p-3 m-1 h-85">
-    <%= render partial: "cart_items/list" %>
-  </div>
-<% end %>
+</div>

@@ -3,6 +3,9 @@ class AddressesController < ApplicationController
   before_action :set_address
 
   def index
+    if @addresses
+      render :new
+    end
   end
 
   def new
