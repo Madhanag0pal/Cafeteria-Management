@@ -3,7 +3,7 @@
 
     <% if @cart_items.present? %>
       <% @cart_items.order(:id).each do |cart_item| %>
-        <% menu_catagory_item = MenuCategoryItem.find(cart_item.menu_item.id) %>
+        <% menu_catagory_item = MenuCategoryItem.find_by(menu_item_id: cart_item.menu_item.id) %>
         <div class="row border-bottom  py-1">
 
           <div class="col-8 text-start w-50 px-1">
@@ -33,9 +33,9 @@
     </div>
     <div class= "col m-auto">
       <% if @current_user.customer? %>
-        <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#checkout-Modal" <%= "disabled" if !@cart_items.present? %>  > Checkout </button>
+        <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#checkout-Modal" data-bs-dismiss="offcanvas" <%= "disabled" if !@cart_items.present? %>  > Checkout </button>
       <% else %>
-        <%= button_to "Checkout", orders_path, method: :post, disabled: !@cart_items.present?, data: { confirm: "Are you sure?" }, class: "btn btn-outline-primary btn-sm " %>
+        <%= button_to "Checkout", orders_path, method: :post, disabled: !@cart_items.present?, data: { confirm: "Are you sure?" }, "data-bs-dismiss" => "offcanvas", class: "btn btn-outline-primary btn-sm " %>
       <% end %>
     </div>
 </div>
