@@ -1,0 +1,17 @@
+<%= form_with **path do |form| %>
+  <div class="container d-grid  row-col-1 justify-content-center">
+    <% fields.each do |field| %>
+      <div class="my-2">
+        <%= if @menu_item
+              form.text_field field, class: "form-control", placeholder: field, value: @menu_item[field]
+            else
+              form.text_field field, class: "form-control", placeholder: field
+            end %>
+      </div>
+    <% end %>
+
+    <div class="my-2 text-center">
+      <%= submit_tag title, class: "btn btn-success w-75" %>
+    </div>
+  </div>
+<% end %>
