@@ -10,9 +10,9 @@
         </div>
       <% end %>
       <%= render partial: "sessions/form", locals: {
-                   title: "Edit",
+                   title: "Save",
                    path: { url: user_path, method: :put },
-                   fields: [:name, :email, :password, :password_confirmation],
+                   fields: [:name, :email],
                  } %>
     </div>
     <div class="modal-footer justify-content-center">
