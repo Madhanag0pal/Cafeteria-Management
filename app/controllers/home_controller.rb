@@ -7,4 +7,9 @@ class HomeController < ApplicationController
       redirect_to "/##{params[:search]}"
     end
   end
+
+  def search
+    query = params[:query].split.map { |part| part.capitalize }.join(" ")
+    @menu_items = MenuItem.where("name LIKE ?", "%#{query}%")
+  end
 end
