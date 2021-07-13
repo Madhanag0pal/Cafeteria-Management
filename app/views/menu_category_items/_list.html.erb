@@ -32,9 +32,9 @@
                     <%= check_box_tag "status", nil, checked = menu_item.status, class: "form-check-input", onclick: "this.form.submit()" %>
                   </div>
                 <% end %>
-              <% elsif @current_user.cart_items.exists?(menu_item_id: menu_item.id) %>
+              <% elsif @cart_menu_item_ids.include?(menu_item.id) %>
                 <div class="btn-group btn-group-sm">
-                  <% crtItm = @current_user.cart_items.find_by(menu_item_id: menu_item.id) %>
+                  <% crtItm = @cart_items.find_by(menu_item_id: menu_item.id) %>
                   <%= button_to "-", cart_item_path(id: crtItm.id, quantity: crtItm.quantity - 1), method: :put, class: "btn btn-outline-primary btn-sm", disabled: menu_category_item.available? %>
                   <a class="btn border-top border-bottom btn-sm"> <%= crtItm.quantity %> </a>
                   <%= button_to "+", cart_item_path(id: crtItm.id, quantity: crtItm.quantity + 1), method: :put, class: "btn btn-outline-primary btn-sm", disabled: menu_category_item.available? %>

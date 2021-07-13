@@ -3,13 +3,12 @@ class HomeController < ApplicationController
   before_action :current_user, :set_cartItems   #,:set_orders
 
   def index
-    if params[:search]
-      redirect_to "/##{params[:search]}"
-    end
   end
 
   def search
-    query = params[:query].split.map { |part| part.capitalize }.join(" ")
-    @menu_items = MenuItem.where("name LIKE ?", "%#{query}%")
+    unless params[:query].empty?
+      query = params[:query].split.map { |part| part.capitalize }.join(" ")
+      @menu_items = MenuItem.where("name LIKE ?", "%#{query}%")
+    end
   end
 end

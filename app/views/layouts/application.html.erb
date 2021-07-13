@@ -16,43 +16,46 @@
       <%= render partial: "layouts/navbar" %>
     </div>
 
-    <!-- Sign In Modal -->
-    <div class="modal fade" id="sign-in-Modal" tabindex="-1" aria-labelledby="signInModalLabel" aria-hidden="true">
-      <%= render template: "sessions/new" %>
-      <script>
-        $(document).ready(function(){
-            $("#sign-in-Modal").on('shown.bs.modal', function(){
-                $(this).find('#email').focus();
-            });
-        });
-      </script>
-    </div>
 
-    <!-- Sign Up Modal -->
-    <div class="modal fade" id="sign-up-Modal" tabindex="-1" aria-labelledby="signUpModalLabel" aria-hidden="true">
-      <%= render template: "users/new" %>
-      <script>
-        $(document).ready(function(){
-            $("#sign-up-Modal").on('shown.bs.modal', function(){
-                $(this).find('#name').focus();
-            });
-        });
-      </script>
-    </div>
-
-    <!-- Checkout Modal  -->
-    <% if @current_user %>
-      <div class="modal fade" id="checkout-Modal" tabindex="-1" aria-labelledby="CheckoutModalLabel" aria-hidden="true">
-        <%= render partial: "cart_items/checkout" %>
+    <% unless @current_user %>
+      <!-- Sign In Modal -->
+      <div class="modal fade" id="sign-in-Modal" tabindex="-1" aria-labelledby="signInModalLabel" aria-hidden="true">
+        <%= render template: "sessions/new" %>
+        <script>
+          $(document).ready(function(){
+              $("#sign-in-Modal").on('shown.bs.modal', function(){
+                  $(this).find('#email').focus();
+              });
+          });
+        </script>
       </div>
+
+      <!-- Sign Up Modal -->
+      <div class="modal fade" id="sign-up-Modal" tabindex="-1" aria-labelledby="signUpModalLabel" aria-hidden="true">
+        <%= render template: "users/new" %>
+        <script>
+          $(document).ready(function(){
+              $("#sign-up-Modal").on('shown.bs.modal', function(){
+                  $(this).find('#name').focus();
+              });
+          });
+        </script>
+      </div>
+    <% else %>
+      <!-- Checkout Modal  -->
+        <div class="modal fade" id="checkout-Modal" tabindex="-1" aria-labelledby="CheckoutModalLabel" aria-hidden="true">
+          <%= render partial: "cart_items/checkout" %>
+        </div>
     <% end %>
+
+
 
     <%= yield %>
 
     <% if @current_user && !@role.admin? %>
       <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
-          <h5 id="offcanvasRightLabel">Cart Items</h5>
+          <h5 id="offcanvasRightLabel">Cart Items (<%= @cart_items.count %>)</h5>
           <% if @cart_items.present? %>
             <%= button_to cart_item_path(id: 0), method: :delete, class: "btn btn-outline-danger btn-sm ms-3" do %>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-x-fill" viewBox="0 0 16 16">

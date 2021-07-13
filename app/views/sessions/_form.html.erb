@@ -11,12 +11,10 @@
           <%= case field
               when :password, :password_confirmation
                 form.password_field field, class: "form-control", placeholder: field, min: 4
+              when :email
+                form.email_field field, class: "form-control", placeholder: field, value: (@current_user ? @current_user[field] : nil), autofocus: fields.first == field, pattern: "^[a-z0-9_-]+@(.+).(.+)$"
               else
-                if field == :email && title == "Sign Up"
-                  form.text_field field, class: "form-control", placeholder: "Email(Example@abc.com)", value: (@current_user ? @current_user[field] : nil), autofocus: fields.first == field, pattern: "^[A-Za-z0-9_-]+@(.+).(.+)$"
-                else
-                  form.text_field field, class: "form-control", placeholder: field, value: (@current_user ? @current_user[field] : nil), autofocus: fields.first == field
-                end
+                form.text_field field, class: "form-control", placeholder: field, value: (@current_user ? @current_user[field] : nil), autofocus: fields.first == field
               end %>
         </div>
       <% end %>

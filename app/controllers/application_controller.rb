@@ -23,6 +23,7 @@ class ApplicationController < ActionController::Base
   def set_cartItems
     if current_user
       @cart_items = @current_user.cart_items
+      @cart_menu_item_ids = @cart_items.map { |i| i.menu_item_id }
     end
   end
 
