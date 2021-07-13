@@ -7,7 +7,11 @@
       <%= form_with url: addresses_path do |form| %>
         <div class="container d-grid gap-2 row-col-1 justify-content-center">
           <div class="my-2">
-            <%= form.text_field :name, class: "form-control", placeholder: "Title" %>
+            <%= form.text_field :name, class: "form-control", placeholder: "Title", list: "titles", autofocus: true %>
+            <datalist id="titles">
+              <option value="Home">
+              <option value="Office">
+            </datalist>
           </div>
           <div class="my-2">
             <%= form.text_area :address, class: "form-control", placeholder: "Address" %>

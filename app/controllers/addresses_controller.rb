@@ -3,7 +3,7 @@ class AddressesController < ApplicationController
   before_action :set_address
 
   def index
-    if @addresses
+    if @addresses.empty?
       render :new
     end
   end
@@ -13,7 +13,7 @@ class AddressesController < ApplicationController
 
   def create
     Address.create(user_id: @current_user.id, name: params[:name], address: params[:address])
-    redirect_to root_path
+    redirect_to addresses_path
   end
 
   def edit
