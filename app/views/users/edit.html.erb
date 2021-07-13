@@ -1,7 +1,7 @@
 <div class="modal-dialog mt-5">
   <div class="modal-content">
     <div class="modal-header ">
-      <h5 class="modal-title"> Edit Profile </h5>
+      <h5 class="modal-title"> <%= (params[:password]) ? "Change Password" : "Edit Profile" %> </h5>
     </div>
     <div class="modal-body">
       <% if flash["sign-up-error"] %>
@@ -9,13 +9,23 @@
           <%= flash["sign-up-error"] %>
         </div>
       <% end %>
-      <%= render partial: "sessions/form", locals: {
-                   title: "Save",
-                   path: { url: user_path, method: :put },
-                   fields: [:name, :email],
-                 } %>
+
+      <% if params[:password] %>
+        <%= render partial: "sessions/form", locals: {
+                     title: "Change",
+                     path: { url: user_path, method: :put },
+                     fields: [:current_password, :new_password, :password_confirmation],
+                   } %>
+      <% else %>
+        <%= render partial: "sessions/form", locals: {
+                     title: "Save",
+                     path: { url: user_path, method: :put },
+                     fields: [:name, :email],
+                   } %>
+      <% end %>
     </div>
     <div class="modal-footer justify-content-center">
+      <%= link_to "Canccel", user_path, class: "btn btn-danger" %>
     </div>
   </div>
 </div>

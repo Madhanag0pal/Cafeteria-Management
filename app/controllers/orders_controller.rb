@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :set_cartItems, :set_orders
+  before_action :set_orders
 
   def index
   end
