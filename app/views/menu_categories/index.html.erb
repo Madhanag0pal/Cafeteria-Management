@@ -15,7 +15,7 @@
         </div>
     <% end %>
 
-  <% MenuCategory.order(:id).each do |category| %>
+  <% MenuCategory.order(:status, :id).each do |category| %>
         <div class="py-3 " id=<%= category.name %>>
           <% if @role.admin? %>
             <div class="d-flex justify-content-around">

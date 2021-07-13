@@ -25,8 +25,22 @@ class UsersController < ApplicationController
   end
 
   def update
-    User.update(params[:id], name: params[:name], address: params[:address])
-    redirect_to user_path
+    if params[:current_password]
+      if @current_user.authenticate(params[:current_password])
+        if @current_user.update(password: params[:new_password], password_confirmation: params[:password_confirmation])
+          redirect_to user_path
+        else
+          flash["sign-up-error"] = "Password and Password confirmation mismatch"
+          redirect_to edit_user_path(id: @current_user.id, password: true)
+        end
+      else
+        flash["sign-up-error"] = "Current password is wrong"
+        redirect_to edit_user_path(id: @current_user.id, password: true)
+      end
+    else
+      @current_user.update(name: params[:name], email: params[:email])
+      redirect_to user_path
+    end
   end
 
   def destroy

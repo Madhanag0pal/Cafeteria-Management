@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
     if current_user_id
       @current_user = User.find(current_user_id)
       @role = current_user.role
+      set_cartItems
     else
       @role = Role.last
       nil
