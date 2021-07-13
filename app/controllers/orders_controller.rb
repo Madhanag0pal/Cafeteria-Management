@@ -28,7 +28,10 @@ class OrdersController < ApplicationController
         @orders.update(id, status_id: 3)
       end
     else
-      Order.update(id, status_id: params[:status_id].to_i)
+      status = params[:status_id].to_i
+      if 2..3 in status
+        Order.update(id, status_id: status)
+      end
     end
     redirect_to orders_path
   end
