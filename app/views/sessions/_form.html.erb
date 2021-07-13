@@ -10,7 +10,7 @@
         <div class="my-2">
           <%= case field
               when :password, :password_confirmation
-                form.password_field field, class: "form-control", placeholder: field, pattern: ".{4}"
+                form.password_field field, class: "form-control", placeholder: field, min: 4
               else
                 if field == :email && title == "Sign Up"
                   form.text_field field, class: "form-control", placeholder: "Email(Example@abc.com)", value: (@current_user ? @current_user[field] : nil), autofocus: fields.first == field, pattern: "^[A-Za-z0-9_-]+@(.+).(.+)$"

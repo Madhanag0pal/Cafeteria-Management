@@ -13,7 +13,7 @@
         </div>
         <% if @current_user.addresses.present? %>
           <div class="my-2">
-              <%= select_tag "address_id", options_for_select(@current_user.addresses.collect { |u| [u.name, u.id] }), class: "form-control" %>
+              <%= select_tag "address", options_for_select(@current_user.addresses.collect { |u| [u.name, u.address] }), class: "form-control" %>
           </div>
           <div class="my-2">
             <%= form.submit "Checkout", class: "btn btn-success form-control" %>

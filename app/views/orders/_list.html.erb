@@ -22,7 +22,7 @@
               <div class="col-4 row row-cols-1 row-cols-md-2 col-sm-3 p-0">
                   <div class="col text-center p-1">
                     <% unless @current_user.customer? %>
-                        <%= link_to "delever", order_path(id: order.id, status_id: 2), method: :put, data: { confirm: "Are you sure?" }, class: "btn btn-success form-control" %>
+                        <%= link_to "deliver", order_path(id: order.id, status_id: 2), method: :put, data: { confirm: "Are you sure?" }, class: "btn btn-success form-control" %>
                     <% end %>
                   </div>
 
