@@ -7,7 +7,7 @@ class HomeController < ApplicationController
 
   def search
     unless params[:query].empty?
-      query = params[:query].split.map { |part| part.capitalize }.join(" ")
+      query = params[:query].split.map(&:capitalize).join(" ")
       @menu_items = MenuItem.where("name LIKE ?", "%#{query}%")
     end
   end

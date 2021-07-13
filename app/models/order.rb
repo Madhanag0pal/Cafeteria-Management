@@ -31,6 +31,10 @@ class Order < ApplicationRecord
     where(status: 2)
   end
 
+  def self.today
+    all.select { |order| order.created_at.to_date == Date.today }
+  end
+
   def self.canceled
     where(status: 3)
   end
