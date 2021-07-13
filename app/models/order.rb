@@ -19,6 +19,14 @@ class Order < ApplicationRecord
     where(status: 1).reverse
   end
 
+  def self.online
+    where.not(address: nil).pending
+  end
+
+  def self.walk_in
+    where(address: nil).pending
+  end
+
   def self.delevered
     where(status: 2)
   end
