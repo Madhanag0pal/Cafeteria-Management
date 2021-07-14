@@ -29,7 +29,7 @@ class OrdersController < ApplicationController
       end
     else
       status = params[:status_id].to_i
-      if 2..3 in status
+      if status == 2 || status == 3
         Order.update(id, status_id: status)
       end
     end

@@ -1,4 +1,6 @@
-<%= render partial: "list", locals: { title: "Admin", users: User.admin, editable: true } %>
+<%= render partial: "list", locals: { title: "Super Admin", users: [User.admin.first], editable: false } %>
+
+<%= render partial: "list", locals: { title: "Admin", users: User.admin[1..], editable: true } %>
 
 <%= render partial: "list", locals: { title: "Clerk", users: User.clerk, editable: true } %>
 
