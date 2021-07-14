@@ -14,14 +14,24 @@ class User < ApplicationRecord
   end
 
   def admin?
-    role.admin?
+    role_id == 1
   end
 
   def clerk?
-    role.clerk?
+    role_id == 2
   end
 
   def customer?
-    role.customer?
+    role_id == 3
+  end
+
+  def self.admin
+    where(role_id: 1)
+  end
+  def self.clerk
+    where(role_id: 2)
+  end
+  def self.customer
+    where(role_id: 3)
   end
 end

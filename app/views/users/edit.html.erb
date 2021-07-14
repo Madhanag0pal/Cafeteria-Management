@@ -1,7 +1,14 @@
 <div class="modal-dialog mt-5">
   <div class="modal-content">
+    <% user = User.find(params[:id]) %>
     <div class="modal-header ">
-      <h5 class="modal-title"> <%= (params[:password]) ? "Change Password" : "Edit Profile" %> </h5>
+
+      <% if params[:editable] %>
+        <h5 class="modal-title"> <%= (params[:password]) ? "Change Password for #{user.name}" : "Edit #{user.name}" %> </h5>
+      <% else %>
+        <h5 class="modal-title"> <%= (params[:password]) ? "Change Password" : "Edit Profile" %> </h5>
+      <% end %>
+
     </div>
     <div class="modal-body">
       <% if flash["sign-up-error"] %>
@@ -9,23 +16,24 @@
           <%= flash["sign-up-error"] %>
         </div>
       <% end %>
-
       <% if params[:password] %>
         <%= render partial: "sessions/form", locals: {
                      title: "Change",
-                     path: { url: user_path, method: :put },
-                     fields: [:current_password, :new_password, :password_confirmation],
+                     user: @current_user,
+                     path: { url: user_path(editable: params[:editable]), method: :put },
+                     fields: [:current_password, :new_password, :password_confirmation][params[:editable] ? 1..2 : 0..2],
                    } %>
       <% else %>
         <%= render partial: "sessions/form", locals: {
                      title: "Save",
-                     path: { url: user_path, method: :put },
+                     user: @current_user.admin? ? user : @current_user,
+                     path: { url: user_path(editable: params[:editable]), method: :put },
                      fields: [:name, :email],
                    } %>
       <% end %>
     </div>
     <div class="modal-footer justify-content-center">
-      <%= link_to "Canccel", user_path, class: "btn btn-danger" %>
+      <%= link_to "Canccel", params[:editable] ? users_path : user_path, class: "btn btn-danger" %>
     </div>
   </div>
 </div>

@@ -1,23 +1,37 @@
 class UsersController < ApplicationController
   skip_before_action :ensuer_user_logged_in, only: [:create, :new]
+  before_action :current_user, only: [:create, :new]
 
   def index
+    unless @role.admin?
+      redirect_to root_path
+    end
   end
 
   def new
   end
 
+  def edit
+    user = @role.admin? ? User.find(params[:id]) : @current_user
+  end
+
   def create
+    role = 3
+    if @role.admin?
+      role = params[:role]
+    end
     user = User.new(
-      role_id: 3,
+      role_id: role,
       name: params[:name],
       email: params[:email],
       password: params[:password],
       password_confirmation: params[:password_confirmation],
     )
     if user.save
-      session[:current_user_id] = user.id
-      redirect_to root_path
+      if @role.customer?
+        session[:current_user_id] = user.id
+      end
+      redirect_to users_path
     else
       flash["sign-up-error"] = user.errors.full_messages.join(", ")
       redirect_to new_user_path
@@ -25,28 +39,43 @@ class UsersController < ApplicationController
   end
 
   def update
+    user = @role.admin? ? User.find(params[:id]) : @current_user
     if params[:current_password]
-      if @current_user.authenticate(params[:current_password])
-        if @current_user.update(password: params[:new_password], password_confirmation: params[:password_confirmation])
-          redirect_to user_path
+      if user.authenticate(params[:current_password])
+        if user.update(password: params[:new_password], password_confirmation: params[:password_confirmation])
+          if params[:editable]
+            redirect_to users_path
+          else
+            redirect_to user_path
+          end
         else
-          flash["sign-up-error"] = "Password and Password confirmation mismatch"
-          redirect_to edit_user_path(id: @current_user.id, password: true)
+          flash["sign-up-error"] = user.errors.full_messages.join(", ")
+          redirect_to edit_user_path(id: user.id, password: true)
         end
       else
         flash["sign-up-error"] = "Current password is wrong"
-        redirect_to edit_user_path(id: @current_user.id, password: true)
+        redirect_to edit_user_path(id: user.id, password: true)
       end
     else
-      @current_user.update(name: params[:name], email: params[:email])
-      redirect_to user_path
+      if user.update(name: params[:name], email: params[:email])
+        if params[:editable]
+          redirect_to users_path
+        else
+          redirect_to user_path
+        end
+      else
+        flash["sign-up-error"] = user.errors.full_messages.join(", ")
+        redirect_to edit_user_path(id: user.id)
+      end
     end
   end
 
   def destroy
-    @current_user.destroy
-    @role = nil
-    session[:current_user_id] = nil
-    redirect_to root_path
+    user = @role.admin? ? User.find(params[:id]) : @current_user
+    user.destroy
+    if @role.customer?
+      session[:current_user_id] = nil
+    end
+    redirect_to users_path
   end
 end

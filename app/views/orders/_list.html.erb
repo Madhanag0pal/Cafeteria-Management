@@ -6,14 +6,21 @@
 
         <button class="btn dropdown-toggle form-control collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-<%= order.id.to_s %>" aria-expanded="false" aria-controls="panelsStayOpen-<%= order.id.to_s %>">
           <div class="d-flex justify-content-between">
-            <div class="col-8 row p-1">
-              <div class="col-12 col-sm-8 text-start">
+            <div class="col-9 row row-cols-1 row-cols-sm-2 row-cols-md-3 p-1">
+              <div class="col text-start">
                 <h4> OrderId: #<%= order.id %> </h4>
               </div>
-              <div class="col-12 text-start col-sm-4 text-sm-end ">
+              <div class="col text-start text-sm-center">
                 <h5> ₹ <%= order.price %></h5>
               </div>
-              <div class="col-12 text-start">
+              <% if order.address.present? %>
+                <div class="col text-start">
+                  <b> <%= " #{order.user.name}," %> </b>
+                  <p> <%= " #{order.address}." %> </p>
+                </div>
+              <% end %>
+
+              <div class="col text-start align-self-center">
                 <p><%= time_ago_in_words order.updated_at %> ago </p>
               </div>
             </div>

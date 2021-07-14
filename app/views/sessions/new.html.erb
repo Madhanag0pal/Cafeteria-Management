@@ -11,6 +11,7 @@
       <% end %>
       <%= render partial: "sessions/form", locals: {
                    title: "Sign In",
+                   user: nil,
                    path: { url: new_sessions_path },
                    fields: [:email, :password],
                  } %>

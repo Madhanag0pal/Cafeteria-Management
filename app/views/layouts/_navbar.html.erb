@@ -79,6 +79,12 @@
                       <% end %>
                     </li>
                   <% end %>
+
+                  <% if @role.admin? %>
+                    <li> <%= link_to "Manage users", users_path, method: :get, class: "dropdown-item" %> </li>
+                    <li> <%= link_to "Sales Report", users_path, method: :get, class: "dropdown-item" %> </li>
+                  <% end %>
+
                   <li> <%= link_to "Sign-out", destroy_sessions_path, method: :delete, class: "dropdown-item" %> </li>
                 </ul>
               </li>

@@ -10,11 +10,11 @@
         <div class="my-2">
           <%= case field
               when :password, :password_confirmation, :current_password, :new_password
-                form.password_field field, class: "form-control", placeholder: field, autofocus: fields.first == field, min: 4
+                form.password_field field, class: "form-control", placeholder: field, autocomplete: "off", autofocus: fields.first == field, min: 4
               when :email
-                form.email_field field, class: "form-control", placeholder: field, value: (@current_user ? @current_user[field] : nil), autofocus: fields.first == field, pattern: "^[a-z0-9_-]+@(.+).(.+)$"
+                form.email_field field, class: "form-control", placeholder: field, value: (user ? user[field] : nil), autocomplete: "off", autofocus: fields.first == field, pattern: "^[a-z0-9_-]+@(.+).(.+)$"
               else
-                form.text_field field, class: "form-control", placeholder: field, value: (@current_user ? @current_user[field] : nil), autofocus: fields.first == field
+                form.text_field field, class: "form-control", placeholder: field, value: (user ? user[field] : nil), autocomplete: "off", autofocus: fields.first == field
               end %>
         </div>
       <% end %>

@@ -15,6 +15,10 @@ class Order < ApplicationRecord
     status_id == 3
   end
 
+  def user
+    User.find(user_id)
+  end
+
   def self.pending
     where(status: 1).reverse
   end

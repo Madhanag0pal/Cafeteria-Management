@@ -1,0 +1,5 @@
+<%= render partial: "list", locals: { title: "Admin", users: User.admin, editable: true } %>
+
+<%= render partial: "list", locals: { title: "Clerk", users: User.clerk, editable: true } %>
+
+<%= render partial: "list", locals: { title: "User", users: User.customer, editable: false } %>
