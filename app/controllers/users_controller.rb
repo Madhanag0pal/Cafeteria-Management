@@ -40,20 +40,24 @@ class UsersController < ApplicationController
 
   def update
     user = @role.admin? ? User.find(params[:id]) : @current_user
+
     if params[:current_password]
       if user.authenticate(params[:current_password])
         if user.update(password: params[:new_password], password_confirmation: params[:password_confirmation])
-          if params[:editable]
-            redirect_to users_path
-          else
-            redirect_to user_path
-          end
+          redirect_to user_path
         else
           flash["sign-up-error"] = user.errors.full_messages.join(", ")
           redirect_to edit_user_path(id: user.id, password: true)
         end
       else
         flash["sign-up-error"] = "Current password is wrong"
+        redirect_to edit_user_path(id: user.id, password: true)
+      end
+    elsif @role.admin? && params[:new_password]
+      if user.update(password: params[:new_password], password_confirmation: params[:password_confirmation])
+        redirect_to users_path
+      else
+        flash["sign-up-error"] = user.errors.full_messages.join(", ")
         redirect_to edit_user_path(id: user.id, password: true)
       end
     else
@@ -72,7 +76,9 @@ class UsersController < ApplicationController
 
   def destroy
     user = @role.admin? ? User.find(params[:id]) : @current_user
-    user.destroy
+    unless user.id == 1
+      user.destroy
+    end
     if @role.customer?
       session[:current_user_id] = nil
     end
