@@ -12,18 +12,25 @@ class AddressesController < ApplicationController
   end
 
   def create
-    Address.create(user_id: @current_user.id, name: params[:name], address: params[:address])
-    redirect_to addresses_path
+    address = Address.new(user_id: @current_user.id, name: params[:name], address: params[:address])
+    if address.save
+      redirect_to addresses_path
+    else
+      flash["address-error"] = "#{params[:name]} address is already exist"
+      redirect_to new_address_path
+    end
   end
 
   def edit
   end
 
   def update
-    if @addresses.exists?(params[:id])
-      @addresses.update(params[:id], name: params[:name], address: params[:address])
+    if @address.update(name: params[:name], address: params[:address])
+      redirect_to addresses_path
+    else
+      flash["address-error"] = "#{params[:name]} address is already exist"
+      redirect_to edit_address_path(id: @address.id)
     end
-    redirect_to addresses_path
   end
 
   def destroy

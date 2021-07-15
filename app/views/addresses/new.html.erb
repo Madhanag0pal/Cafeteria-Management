@@ -1,29 +1,4 @@
-<div class="modal-dialog mt-6">
-  <div class="modal-content">
-    <div class="modal-header ">
-      <h5 class="modal-title">Add Address</h5>
-    </div>
-    <div class="modal-body">
-      <%= form_with url: addresses_path do |form| %>
-        <div class="container d-grid gap-2 row-col-1 justify-content-center">
-          <div class="my-2">
-            <%= form.text_field :name, class: "form-control", placeholder: "Title", list: "titles", autofocus: true, autocomplete: "off" %>
-            <datalist id="titles">
-              <option value="Home">
-              <option value="Office">
-            </datalist>
-          </div>
-          <div class="my-2">
-            <%= form.text_area :address, class: "form-control", placeholder: "Address" %>
-          </div>
-          <div class="my-2 text-center">
-            <%= submit_tag "Add Address", class: "btn btn-success" %>
-          </div>
-        </div>
-      <% end %>
-    </div>
-    <div class="modal-footer justify-content-center">
-      <%= link_to "Canccel", addresses_path, class: "btn btn-danger" %>
-    </div>
-  </div>
-</div>
+<%= render partial: "form", locals: {
+            path: { url: addresses_path },
+            title: "Add new address",
+          } %>
