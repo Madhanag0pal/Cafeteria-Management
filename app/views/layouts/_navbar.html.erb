@@ -1,15 +1,12 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="navbar">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary py-1 px-2" id="navbar">
   <div class="container-fluid" id="navbar">
 
-    <a class="navbar-brand" href="/">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
-        <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
-      </svg>
+    <a class="navbar-brand, p-0" href="/">
+      <%= image_tag "logo-1.png", height: 50 %>
     </a>
 
-    <div class="col-8 col-sm-9 col-md-10 col-lg-6 scroll-x mb-2 mb-lg-0">
-      <ul class="navbar-nav flex row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 flex-row ">
+    <div class="col-9 col-sm-10 col-md-11 col-lg-4 scroll-x mb-2 mb-lg-0">
+      <ul class="navbar-nav flex row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-3 flex-row ">
         <% MenuCategory.order(:id).each do |catagory| %>
           <li class="nav-item d-flex col justify-content-center">
             <a class="nav-link active" aria-current="page" href=<%= "/#" + catagory.name %> ><%= catagory.name %></a>
@@ -23,7 +20,7 @@
     </button>
 
     <div class="collapse navbar-collapse justify-content-between" id="navbarColor">
-      <div class="d-flex justify-content-center ps-2">
+      <div class="d-flex justify-content-center ps-2 w-100">
         <%= form_with url: search_path, method: :get, class: "d-inline-flex" do |form| %>
           <input class="form-control w-100 me-2" placeholder="Search for Menu Item" name="query">
           <button class="btn btn-success" type="submit">Search</button>
@@ -82,7 +79,9 @@
 
                   <% if @role.admin? %>
                     <li> <%= link_to "Manage users", users_path, method: :get, class: "dropdown-item" %> </li>
+                    <!--
                     <li> <%= link_to "Sales Report", users_path, method: :get, class: "dropdown-item" %> </li>
+                    -->
                   <% end %>
 
                   <li> <%= link_to "Sign-out", destroy_sessions_path, method: :delete, class: "dropdown-item" %> </li>
