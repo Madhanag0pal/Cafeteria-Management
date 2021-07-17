@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root to: "home#index"
   get "/search" => "home#search", as: :search
+  get "/sales_report" => "sales_report#index", as: :sales_report
+
   resources :users
   resources :cart_items, except: [:show, :new, :edit]
   resources :orders, except: [:edit]

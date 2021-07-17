@@ -1,0 +1,9 @@
+<div class="col-12 col-md-9 mx-auto mt-5">
+  <h1>Overall sales</h1>
+  <%= line_chart sales_data, label: "Overall sales", prefix: "₹", download: { filename: "Sales_Report_" + Date.today.to_s, background: "white" } %>
+</div>
+
+<div class="col-12 col-md-9 mx-auto mt-5">
+  <h1>Products soled</h1>
+  <%= bar_chart product_data, xtitle: "Quantity", height: "#{[*product_data].size * 25}px" %>
+</div>
