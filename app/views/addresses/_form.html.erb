@@ -19,9 +19,11 @@
               <option value="Office">
             </datalist>
           </div>
+
           <div class="my-2">
             <%= form.text_area :address, class: "form-control", placeholder: "Address", value: @address ? @address.address : "" %>
           </div>
+
           <div class="my-2 text-center">
             <%= submit_tag "Add", class: "btn btn-success w-50" %>
           </div>
@@ -29,7 +31,9 @@
       <% end %>
 
     <div class="modal-footer justify-content-center">
-      <%= link_to "Canccel", addresses_path, class: "btn btn-danger w-50" %>
+      <% unless @addresses.empty? %>
+        <%= link_to "Canccel", addresses_path, class: "btn btn-danger w-50" %>
+      <% end %>
     </div>
   </div>
 </div>

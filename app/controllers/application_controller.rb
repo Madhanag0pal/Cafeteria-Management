@@ -21,6 +21,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def is_admin
+    unless @current_user.admin?
+      redirect_to root_path
+    end
+  end
+
   def set_cartItems
     if current_user
       @cart_items = @current_user.cart_items
@@ -31,9 +37,9 @@ class ApplicationController < ActionController::Base
   def set_orders
     if @current_user
       if @current_user.customer?
-        @orders = @current_user.orders.order(:status_id, updated_at: :desc)
+        @orders = @current_user.orders
       else
-        @orders = Order.all.order(:status_id, updated_at: :desc)
+        @orders = Order.all
       end
     end
   end

@@ -1,5 +1,5 @@
 class CartItemsController < ApplicationController
-  before_action :set_cartItems
+  before_action :set_cartItems, :is_customer
 
   def index
   end
@@ -26,5 +26,13 @@ class CartItemsController < ApplicationController
   def destroy
     @cart_items.destroy_all
     redirect_to root_path
+  end
+
+  private
+
+  def is_customer
+    if @current_user.admin?
+      redirect_to root_path
+    end
   end
 end

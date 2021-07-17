@@ -29,12 +29,6 @@ class MenuCategoriesController < ApplicationController
 
   private
 
-  def is_admin
-    unless @current_user.admin?
-      redirect_to root_path
-    end
-  end
-
   def set_menu_categoy
     @menu_categoy = MenuCategory.find(params[:id])
   end

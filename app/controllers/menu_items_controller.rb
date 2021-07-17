@@ -23,12 +23,6 @@ class MenuItemsController < ApplicationController
 
   private
 
-  def is_admin
-    unless @current_user.admin?
-      redirect_to root_path
-    end
-  end
-
   def set_menu_item
     @menu_item = MenuItem.find(params[:id])
   end

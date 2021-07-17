@@ -1,6 +1,5 @@
 class AddressesController < ApplicationController
-  before_action :is_user
-  before_action :set_address
+  before_action :is_user, :set_address
 
   def index
     if @addresses.empty?

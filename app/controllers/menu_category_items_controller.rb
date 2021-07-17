@@ -13,12 +13,4 @@ class MenuCategoryItemsController < ApplicationController
     @category_items = MenuCategoryItem.where(menu_category_id: @category.id).menu_item
     @menu_items = MenuItem.order(id: :desc)
   end
-
-  private
-
-  def is_admin
-    unless @role.admin?
-      redirect_to root_path
-    end
-  end
 end
