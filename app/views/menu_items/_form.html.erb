@@ -2,14 +2,13 @@
   <div class="container d-grid  row-col-1 justify-content-center">
     <% fields.each do |field| %>
       <div class="my-2">
-        <%= if @menu_item
-              form.text_field field, class: "form-control", placeholder: field, value: @menu_item[field]
-            else
-              form.text_field field, class: "form-control", placeholder: field
-            end %>
+        <% if field == :price %>
+          <%= form.number_field "price", class: "form-control", placeholder: "₹ Price", min: 0, step: 0.1, value: (@menu_item ? @menu_item[:price] : ""), required: true %>
+        <% else %>
+          <%= form.text_field field, class: "form-control", placeholder: "#{field.capitalize} Of the Item", value: (@menu_item ? @menu_item[:name] : ""), required: true, autofocus: fields.first == field %>
+        <% end %>
       </div>
     <% end %>
-
     <div class="my-2 text-center">
       <%= submit_tag title, class: "btn btn-success w-75" %>
     </div>

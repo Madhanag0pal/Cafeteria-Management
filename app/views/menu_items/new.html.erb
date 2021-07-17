@@ -9,11 +9,21 @@
           <%= flash["menu-item-error"] %>
         </div>
       <% end %>
+      <%= render partial: "form", locals:{
+        path: {url: menu_items_path(menu_category_id: params[:menu_category_id])},
+        fields: [:name, :description, :price],
+        title: "Create new item"
+      } %>
+
+    </div>
+  </div>
+</div>
+<!--
       <%= form_with url: menu_items_path(menu_category_id: params[:menu_category_id]) do |form| %>
         <div class="container d-grid  row-col-1 justify-content-center">
 
           <div class="my-2">
-            <%= form.text_field "name", class: "form-control", placeholder: "Name Of the Item", value: (@menu_item ? @menu_item[:name] : ""), required: true, autofocus: true %>
+            <%= form.text_field "name", class: "form-control", placeholder: "Name Of the Item", value: (@menu_item ? @menu_item[:name] : ""), required: true %>
           </div>
 
           <div class="my-2">
@@ -29,8 +39,4 @@
           </div>
         </div>
       <% end %>
-
-
-    </div>
-  </div>
-</div>
+-->

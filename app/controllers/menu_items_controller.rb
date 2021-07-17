@@ -18,7 +18,15 @@ class MenuItemsController < ApplicationController
   end
 
   def update
-    @menu_item.update(status: params[:status])
+    if params[:status]
+      @menu_item.update(status: params[:status])
+    else
+      @menu_item.update(name: params[:name], description: [:description], price: [:price])
+    end
+  end
+
+  def destroy
+    @menu_item.destroy
   end
 
   private
