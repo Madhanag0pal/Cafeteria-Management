@@ -13,6 +13,11 @@
               <div class="col text-start text-sm-center">
                 <h5> ₹ <%= order.price %></h5>
               </div>
+
+              <div class="col text-start align-self-center">
+                <p class="text-secondary mx-1"><%= time_ago_in_words order.updated_at %> ago </p>
+              </div>
+
               <% if order.address.present? %>
                 <div class="col text-start">
                   <b> <%= " #{order.user.name}," %> </b>
@@ -20,20 +25,17 @@
                 </div>
               <% end %>
 
-              <div class="col text-start align-self-center">
-                <p class="text-secondary mx-1"><%= time_ago_in_words order.updated_at %> ago </p>
-              </div>
             </div>
 
             <% if order.pending? %>
               <div class="col-4 row row-cols-1 row-cols-md-2 col-sm-3 p-0">
-                  <div class="col text-center p-1">
+                  <div class="col text-center p-1 my-md-auto">
                     <% unless @current_user.customer? %>
-                        <%= link_to "deliver", order_path(id: order.id, status_id: 2), method: :put, data: { confirm: "Are you sure?" }, class: "btn btn-success form-control" %>
+                      <%= link_to "deliver", order_path(id: order.id, status_id: 2), method: :put, data: { confirm: "Are you sure?" }, class: "btn btn-success form-control" %>
                     <% end %>
                   </div>
 
-                  <div class="col text-center p-1">
+                  <div class="col text-center p-1 my-md-auto">
                     <%= link_to "cancel", order_path(id: order.id, status_id: 3), method: :put, data: { confirm: "Are you sure?" }, class: "btn btn-danger form-control" %>
                   </div>
               </div>

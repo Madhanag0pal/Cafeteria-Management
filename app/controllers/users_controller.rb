@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   def index
     unless @role.admin?
-      redirect_to root_path
+      render :show
     end
   end
 

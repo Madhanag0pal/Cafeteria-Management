@@ -63,13 +63,13 @@
 
     <div class="tab-pane fade" id="delevered" role="tabpanel" aria-labelledby="delevered-tab">
       <div class="pt-2 px-3">
-        <%= render partial: "list", locals: { orders: @orders.delevered } %>
+        <%= render partial: "list", locals: { orders: @orders.delevered.order(updated_at: :desc) } %>
       </div>
     </div>
 
     <div class="tab-pane fade" id="cancled" role="tabpanel" aria-labelledby="cancled-tab">
       <div class="pt-2 px-3">
-        <%= render partial: "list", locals: { orders: @orders.canceled } %>
+        <%= render partial: "list", locals: { orders: @orders.canceled.order(updated_at: :desc) } %>
       </div>
     </div>
   </div>

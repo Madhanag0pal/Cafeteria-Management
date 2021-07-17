@@ -19,27 +19,27 @@ class Order < ApplicationRecord
     User.find(user_id)
   end
 
-  def self.pending
-    where(status: 1).reverse
+  def self.pending(order = :desc)
+    where(status: 1).order(created_at: order)
   end
 
   def self.online
-    where.not(address: nil).pending
+    where.not(address: nil).pending(:asc)
   end
 
   def self.walk_in
-    where(address: nil).pending
+    where(address: nil).pending(:asc)
   end
 
   def self.delevered
     where(status: 2)
   end
 
-  def self.today
-    all.select { |order| order.created_at.to_date == Date.today }
-  end
-
   def self.canceled
     where(status: 3)
+  end
+
+  def self.total
+    all.sum(:price)
   end
 end
