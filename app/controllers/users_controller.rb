@@ -40,7 +40,6 @@ class UsersController < ApplicationController
 
   def update
     user = @role.admin? ? User.find(params[:id]) : @current_user
-
     if params[:current_password]
       if user.authenticate(params[:current_password])
         if user.update(password: params[:new_password], password_confirmation: params[:password_confirmation])

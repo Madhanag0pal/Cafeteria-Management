@@ -1,6 +1,6 @@
 class MenuItemsController < ApplicationController
   before_action :is_admin
-  before_action :set_menu_item, only: [:edit, :update, :destory]
+  before_action :set_menu_item, only: [:edit, :update, :destroy]
 
   def new
   end
@@ -18,15 +18,17 @@ class MenuItemsController < ApplicationController
   end
 
   def update
-    if params[:status]
-      @menu_item.update(status: params[:status])
+    if params[:name]
+      @menu_item.update(name: params[:name], description: params[:description], price: params[:price])
     else
-      @menu_item.update(name: params[:name], description: [:description], price: [:price])
+      @menu_item.update(status: params[:status])
     end
+    redirect_to root_path
   end
 
   def destroy
     @menu_item.destroy
+    redirect_to root_path
   end
 
   private

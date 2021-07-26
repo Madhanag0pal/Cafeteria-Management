@@ -6,6 +6,7 @@ class MenuCategoryItemsController < ApplicationController
     unless params[:add]
       menu_category_item.destroy
     end
+    redirect_to new_menu_category_item_path(menu_category_id: params[:menu_category_id])
   end
 
   def new
