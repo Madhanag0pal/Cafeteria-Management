@@ -1,0 +1,6 @@
+<%= render partial: "form", locals: {
+            path: { url: @menu_item, method: :put },
+            fields: [:name, :description, :price],
+            title: "Edit menu item",
+            submit_title: "Save",
+          } %>

@@ -3,12 +3,10 @@
     <% if @role.admin? %>
         <div class="py-3 text-center">
           <%= form_with url: menu_categories_path do |form| %>
-            <div class="container-fluied d-flex flex-wrap justify-content-center">
-              <div class="col-12 col-md-4 px-3 my-2 my-md-0">
-                <%= form.text_field "name", class: "form-control", placeholder: "Create New Category" %>
-              </div>
-              <div class="col-12 col-md-4 px-0 px-lg-3 my-2 my-md-0 text-center">
-                <%= submit_tag "Create", class: "btn btn-success w-75" %>
+            <div class="container-fluied d-flex flex-wrap justify-content-center ">
+              <div class="input-group mb-3 mx-0 mx-sm-5 px-0 px-sm-5">
+                <%= form.text_field "name", class: "form-control", placeholder: "New Category Name" %>
+                <%= submit_tag "Create", class: "btn btn-success w-25" %>
               </div>
             </div>
           <% end %>

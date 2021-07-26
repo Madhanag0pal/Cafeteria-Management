@@ -1,42 +1,6 @@
-<div class="modal-dialog mt-5">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h4>Create New Item</h4>
-    </div>
-    <div class="modal-body p-3 h-100 scroll-y">
-      <% if flash["menu-item-error"] %>
-        <div class="alert alert-danger" role="alert">
-          <%= flash["menu-item-error"] %>
-        </div>
-      <% end %>
-      <%= render partial: "form", locals:{
-        path: {url: menu_items_path(menu_category_id: params[:menu_category_id])},
-        fields: [:name, :description, :price],
-        title: "Create new item"
-      } %>
-
-    </div>
-  </div>
-</div>
-<!--
-      <%= form_with url: menu_items_path(menu_category_id: params[:menu_category_id]) do |form| %>
-        <div class="container d-grid  row-col-1 justify-content-center">
-
-          <div class="my-2">
-            <%= form.text_field "name", class: "form-control", placeholder: "Name Of the Item", value: (@menu_item ? @menu_item[:name] : ""), required: true %>
-          </div>
-
-          <div class="my-2">
-            <%= form.text_field "description", class: "form-control", placeholder: "Description", value: (@menu_item ? @menu_item[:description] : "") %>
-          </div>
-
-          <div class="my-2">
-            <%= form.number_field "price", class: "form-control", placeholder: "₹ Price", min: 0, step: 0.1, value: (@menu_item ? @menu_item[:price] : ""), required: true %>
-          </div>
-
-          <div class="my-2 text-center">
-            <%= submit_tag "Create new item", class: "btn btn-success w-75" %>
-          </div>
-        </div>
-      <% end %>
--->
+<%= render partial: "form", locals: {
+            path: { url: menu_items_path(menu_category_id: params[:menu_category_id]) },
+            fields: [:name, :description, :price],
+            title: "Create new menu item",
+            submit_title: "Create",
+          } %>

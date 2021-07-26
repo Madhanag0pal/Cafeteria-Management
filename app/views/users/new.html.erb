@@ -5,7 +5,6 @@
         <%= params[:editable] ? "Create New #{params[:role]}" : "Sign Up" %>
       </h5>
     </div>
-
     <div class="modal-body">
       <% if flash["sign-up-error"] %>
         <div class="alert alert-danger" role="alert">
@@ -13,13 +12,12 @@
         </div>
       <% end %>
       <%= render partial: "sessions/form", locals: {
-                   title: "Sign Up",
+                   title: @current_user ? "Create" : "Sign Up",
                    user: nil,
                    path: { url: users_path(role: params[:role] == "Admin" ? 1 : 2) },
                    fields: [:name, :email, :password, :password_confirmation],
                  } %>
     </div>
-
     <div class="modal-footer justify-content-center">
       <p class="text-start">
         <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#sign-in-Modal" data-bs-dismiss="modal"> Sign In </button> </p>

@@ -1,41 +1,36 @@
 <div class="row border-top scroll-y h-85">
   <div class="col-12 border">
-
     <% if @cart_items.present? %>
       <% @cart_items.order(:id).each do |cart_item| %>
         <% menu_catagory_item = MenuCategoryItem.find_by(menu_item_id: cart_item.menu_item.id) %>
         <div class="row border-bottom  py-1">
-
           <div class="col-8 text-start w-50 px-1">
-            <p><%= cart_item.menu_item.name %>  <%= ":(" if menu_catagory_item.available? %> <p>
+            <p><%= cart_item.menu_item.name %>  <%= ":(" if menu_catagory_item.available? %></p>
           </div>
-
           <div class="col-4 text-end w-50 px-1">
-            <p class="m-0">₹<%= cart_item.price %><p>
+            <p class="m-0">₹<%= cart_item.price %></p>
             <div class="btn-group btn-group-sm">
               <%= button_to "-", cart_item_path(id: cart_item.id, quantity: cart_item.quantity - 1), method: :put, class: "btn btn-outline-primary btn-sm", disabled: menu_catagory_item.available? %>
               <a class="btn border-top border-bottom btn-sm"> <%= cart_item.quantity %> </a>
               <%= button_to "+", cart_item_path(id: cart_item.id, quantity: cart_item.quantity + 1), method: :put, class: "btn btn-outline-primary btn-sm", disabled: menu_catagory_item.available? %>
             </div>
           </div>
-
         </div>
       <% end %>
     <% end %>
   </div>
 </div>
-
 <div class= "row row-cols-1 row-cols-lg-2 text-center my-2">
-    <div class="col">
-      <p>
-        Subtotal: ₹ <%= @cart_items.present? ? @cart_items.price : 0 %>
-      </p>
-    </div>
-    <div class= "col m-auto">
-      <% if @current_user.customer? %>
-        <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#checkout-Modal" data-bs-dismiss="offcanvas" <%= "disabled" if !@cart_items.present? %>  > Checkout </button>
-      <% else %>
-        <%= button_to "Checkout", orders_path, method: :post, disabled: !@cart_items.present?, data: { confirm: "Are you sure?" }, "data-bs-dismiss" => "offcanvas", class: "btn btn-outline-primary btn-sm " %>
-      <% end %>
-    </div>
+  <div class="col">
+    <p>
+      Subtotal: ₹ <%= @cart_items.present? ? @cart_items.price : 0 %>
+    </p>
+  </div>
+  <div class= "col m-auto">
+    <% if @current_user.customer? %>
+      <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#checkout-Modal" data-bs-dismiss="offcanvas" <%= "disabled" if !@cart_items.present? %>  > Checkout </button>
+    <% else %>
+      <%= button_to "Checkout", orders_path, method: :post, disabled: !@cart_items.present?, data: { confirm: "Total bill value: #{@cart_items.price}₹\nAre you sure Placing Your Order?" }, "data-bs-dismiss" => "offcanvas", class: "btn btn-outline-primary btn-sm " %>
+    <% end %>
+  </div>
 </div>
