@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  require "sidekiq/web"
+  mount Sidekiq::Web => "/sidekiq"
+
   root to: "home#index"
   get "/search" => "home#search", as: :search
   get "/sales_report" => "sales_report#index", as: :sales_report
