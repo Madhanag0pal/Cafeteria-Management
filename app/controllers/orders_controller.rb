@@ -10,9 +10,11 @@ class OrdersController < ApplicationController
 
   def create
     if @cart_items
-      order = Order.create(user_id: @current_user.id, address: params[:address])
-      @cart_items.place_order(order)
-
+      if @cart_items.present?
+        # order = Order.create(user_id: @current_user.id, address: params[:address])
+        # @cart_items.place_order(order)
+      end
+      OrderMailer.order_details(@current_user, @cart_items).deliver
       if @role.customer?
         redirect_to order_path(id: @current_user.id)
       else

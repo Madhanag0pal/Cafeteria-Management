@@ -7,10 +7,10 @@ development:
   <<: *default
   host: localhost
   database: cafeteria_management
-  # user: cafeteriaadmin
-  # password: cafeteriaPassword
-  user: postgres
-  password: changeme
+  user: <%= ENV["DB_USERNAME"] %>
+  password: <%= ENV["DB_PASSWORD"] %>
+  # user: postgres
+  # password: changeme
 # test:
 #   <<: *default
 #   database: cafeteria_management_test
